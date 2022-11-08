@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap');
+
+$bgc-main: #151515;
+$bgc-card: hsla(0,0%,100%,.07);
+$general-text-color: #fff;
+$secondary-text-color: #444;
+$tertiary-text-color: rgb(192, 192, 192);
+$ff-primary: 'Poppins', sans-serif;  
+$fs-lm-main: 30px;
+$fs-main: 16px;
+$max-size-primary: 1920px;
+
+* {
+ box-sizing: border-box;   
+}
+
+body {
+    font-family: $ff-primary;
+    color: $general-text-color;  
+    margin: 0;
+    background-color: $bgc-main;
+    text-rendering: optimizeLegibility;
+}
+
+input:focus, button:focus, textarea:focus {
+    outline: none;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-size: inherit;
+}
+  
+  input, button {
+    border:none;
+    font-size: inherit;
+    font-family: inherit;
+}
+ul, li, p {
+    padding: 0; 
+    margin: 0;
+    list-style-type: none;
+}
+  
+a {
+    outline: none;
+    color: $general-text-color; 
+    text-decoration: none;
+  }
+
+
+h1 {
+    color: $general-text-color; 
+    text-align: center;
+    opacity: 0.4;
+}
+
+.page {
+    max-width: $max-size-primary;
+    margin: 0 auto;  
+}

@@ -1,0 +1,30 @@
+@import "../../index.module.scss";
+
+.leftMenu {
+    width: 220px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+    &_sidebar_title {
+        font-size: $fs-lm-main; 
+        transition: color 0.4s ease-in-out;
+        display: flex; 
+        justify-content: center;
+        &:hover {
+            color: $secondary-text-color;
+            cursor: pointer;
+        }
+
+        // @media only screen and (max-width: 1000px) {
+        //    color: red;
+        //   }
+    } 
+}
+.items {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+}
+
+ 

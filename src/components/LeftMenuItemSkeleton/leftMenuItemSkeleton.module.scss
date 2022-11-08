@@ -1,0 +1,38 @@
+@import "../../index.module.scss";
+
+.item { 
+    display: flex;   
+    align-items: center; 
+    font-size: 16px; 
+    gap: 20px; 
+    padding: 5px 0;
+    &_img {  
+        width: 30px;   
+        margin-left: 10px;    
+        border-radius: 5px;
+        background-color: $bgc-card;
+    }
+    &_title {
+        transition: color 0.3s ease-in-out;
+    }
+    &:hover {
+        cursor: pointer; 
+    }
+    &:hover .image {
+        cursor: pointer;  
+        fill:$secondary-text-color; 
+    }
+    &:hover .item_title {
+        cursor: pointer; 
+        color: $secondary-text-color;
+    }
+}
+.image { 
+    width: 100%;  
+    object-fit: contain;
+    transition: fill 0.2s ease-in-out;
+    &:hover{ 
+        cursor: pointer;
+        fill:$secondary-text-color; 
+    }
+}  

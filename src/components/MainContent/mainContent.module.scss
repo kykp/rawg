@@ -1,0 +1,20 @@
+@import "../../index.module.scss";
+
+.main {
+    display: flex;
+    margin: 0 auto;  
+}
+ 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.loader { 
+    margin: 25px 0;
+    display: flex;
+    justify-content: center;
+    &__button {
+        width: 200px;
+    }
+}

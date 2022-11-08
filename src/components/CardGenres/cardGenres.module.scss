@@ -1,0 +1,9 @@
+@import "../../index.module.scss";
+
+.p {
+    margin-left: 5px;
+    &:hover {
+        cursor: pointer;
+        color: $general-text-color
+    }
+}
