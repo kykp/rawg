@@ -51,6 +51,9 @@ export const MainContent = () => {
     <main className={clsx(styles.main, styles.page)}>
       <LeftMenu />
       <section className={styles.wrapper}>
+        <div className={styles.filters}>
+          <button>Hello</button>
+        </div>
         <GamesGallery />
         {!loading ? (
           <div ref={lastCardElementRef} className={styles.loader}>
