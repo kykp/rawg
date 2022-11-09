@@ -69,6 +69,7 @@ export const fetchMoreGamesByFilter = createAsyncThunk<
     if (!response.ok) {
       return rejectWithValue(`server error`);
     }
+
     const data = await response.json();
     return data.results;
   }

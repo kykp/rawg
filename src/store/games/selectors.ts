@@ -5,6 +5,7 @@ import { Game } from "./gamesSlice";
 export const getAllGames = (store: RootState) => store.games;
 export const getFilters = (store: RootState) => store.games;
 export const getSearch = (store: RootState) => store.games;
+export const getError = (store: RootState) => store.games;
 
 export const selectAllGames = createSelector(
   getAllGames,
@@ -17,6 +18,7 @@ export const selectFilters = createSelector(
 );
 
 export const selectSearch = createSelector(getSearch, (games) => games.search);
+export const selectError = createSelector(getError, (game) => game.error);
 
 export const selectGamesByFilter = createSelector(
   [selectAllGames, selectFilters],

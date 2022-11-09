@@ -72,12 +72,18 @@ export const gamesSlice = createSlice({
       .addCase(fetchGames.pending, (state) => {
         state.loading = true;
       })
+      .addCase(fetchGames.rejected, (state) => {
+        state.error = "Warning";
+      })
       .addCase(fetchMoreGames.fulfilled, (state, action) => {
         state.games = [...state.games, ...action.payload];
         state.loading = false;
       })
       .addCase(fetchMoreGames.pending, (state) => {
         state.loading = true;
+      })
+      .addCase(fetchMoreGames.rejected, (state) => {
+        state.error = "Warning";
       })
       .addCase(fetchMoreGamesByFilter.fulfilled, (state, action) => {
         state.games = [...state.games, ...action.payload];
@@ -86,6 +92,9 @@ export const gamesSlice = createSlice({
       .addCase(fetchMoreGamesByFilter.pending, (state) => {
         state.loading = true;
       })
+      .addCase(fetchMoreGamesByFilter.rejected, (state) => {
+        state.error = "Warning";
+      })
       .addCase(fetchGamesBySearch.fulfilled, (state, action) => {
         state.games = action.payload;
         state.loading = false;
@@ -93,12 +102,18 @@ export const gamesSlice = createSlice({
       .addCase(fetchGamesBySearch.pending, (state) => {
         state.loading = true;
       })
+      .addCase(fetchGamesBySearch.rejected, (state) => {
+        state.error = "Warning";
+      })
       .addCase(fetchMoreGamesBySearch.fulfilled, (state, action) => {
         state.games = [...state.games, ...action.payload];
         state.loading = false;
       })
       .addCase(fetchMoreGamesBySearch.pending, (state) => {
         state.loading = true;
+      })
+      .addCase(fetchMoreGamesBySearch.rejected, (state) => {
+        state.error = "Warning";
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;

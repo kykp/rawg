@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 
 import { LeftMenu } from "../LeftMenu/LeftMenu.tsx";
 import { GamesGallery } from "../GamesGallery/GamesGallery.tsx";
@@ -8,7 +8,11 @@ import {
   fetchMoreGamesByFilter,
   fetchMoreGamesBySearch,
 } from "../../store/games/asyncActions";
-import { selectFilters, selectSearch } from "../../store/games/selectors";
+import {
+  selectFilters,
+  selectSearch,
+  selectError,
+} from "../../store/games/selectors";
 import styles from "./mainContent.module.scss";
 
 import clsx from "clsx";
@@ -20,8 +24,13 @@ export const MainContent = () => {
   const loading = useAppSelector((store) => store.games.loading);
   const filter = useAppSelector(selectFilters);
   const search = useAppSelector(selectSearch);
+  const error = useAppSelector(selectError);
 
   const [page, setPage] = useState(2);
+
+  useEffect(() => {
+    setPage(2);
+  }, [filter]);
 
   let observer = useRef<IntersectionObserver | null>(null);
   let lastCardElementRef = useCallback(
@@ -30,7 +39,7 @@ export const MainContent = () => {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(
         (entries) => {
-          if (entries[0].isIntersecting) {
+          if (entries[0].isIntersecting && !error) {
             setPage(page + 1);
 
             if (search) dispatch(fetchMoreGamesBySearch({ page, search }));
@@ -46,8 +55,9 @@ export const MainContent = () => {
     [loading, page, dispatch, filter.id, search]
   );
 
-  console.log(loading);
-  console.log(filter);
+  console.log(page);
+  // console.log(loading);
+  // console.log(filter);
   return (
     <main className={clsx(styles.main, styles.page)}>
       <LeftMenu />

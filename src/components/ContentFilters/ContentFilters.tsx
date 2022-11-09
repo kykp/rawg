@@ -7,15 +7,19 @@ export const ContentFilters = () => {
   const filter = useAppSelector(selectFilters);
 
   return (
-    <div className={styles.filters}>
-      <button className={styles.filters__button}>
-        <div className={styles.block}>
-          <span className={styles.block__title}>Filtred by:</span>
-          <span className={styles.block__subtitle}>
-            {filter.slug.toUpperCase()}
-          </span>
+    <>
+      {filter.id !== -1 && (
+        <div className={styles.filters}>
+          <button className={styles.filters__button}>
+            <div className={styles.block}>
+              <span className={styles.block__title}>Filtred by:</span>
+              <span className={styles.block__subtitle}>
+                {filter.slug.toUpperCase()}
+              </span>
+            </div>
+          </button>
         </div>
-      </button>
-    </div>
+      )}
+    </>
   );
 };
