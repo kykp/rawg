@@ -11,7 +11,8 @@ const plugsNumbers = 10;
 export const GamesGallery = () => {
   const data = useAppSelector(selectGamesByFilter);
 
-  console.log("render game-gallery", data);
+  console.log("render game-gallery");
+  console.log(data);
   return (
     <div className={styles.gamesGallery}>
       {data.length

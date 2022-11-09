@@ -49,12 +49,34 @@ export const fetchMoreGames = createAsyncThunk<
   return data.results;
 });
 
-export const fetchMoreGamesByFilter = createAsyncThunk<
+export const fetchGamesByPlatform = createAsyncThunk<
+  Game[],
+  { filter: number },
+  { rejectValue: string }
+>("games/fetchGamesByPlatform", async ({ filter }, { rejectWithValue }) => {
+  const response = await fetch(
+    `${API_URL}/games?key=${api_key}&page=1&page_size=${size}&parent_platforms=${filter}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    return rejectWithValue(`server error`);
+  }
+
+  const data = await response.json();
+  return data.results;
+});
+export const fetchMoreGamesByPlatform = createAsyncThunk<
   Game[],
   { page: number; filter: number },
   { rejectValue: string }
 >(
-  "games/fetchMoreGamesByFilter",
+  "games/fetchMoreGamesByPlatform",
   async ({ page, filter }, { rejectWithValue }) => {
     const response = await fetch(
       `${API_URL}/games?key=${api_key}&page=${page}&page_size=${size}&parent_platforms=${filter}`,
@@ -81,7 +103,7 @@ export const fetchGamesBySearch = createAsyncThunk<
   { rejectValue: string }
 >("games/fetchGamesBySearch", async ({ search }, { rejectWithValue }) => {
   const response = await fetch(
-    `${API_URL}/games?key=${api_key}&search=${search}`,
+    `${API_URL}/games?key=${api_key}&page=1&page_size=${size}&search=${search}`,
     {
       method: "GET",
       headers: {
@@ -113,7 +135,6 @@ export const fetchMoreGamesBySearch = createAsyncThunk<
         },
       }
     );
-
     if (!response.ok) {
       return rejectWithValue(`server error`);
     }

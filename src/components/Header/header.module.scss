@@ -29,8 +29,10 @@
     border-radius: 5px;
     background-color: $bgc-card;
     transition: background-color 0.5s ease-in-out;
+    color: white;
     &:hover {
         background-color: #fff;
+        color: black;
     }
 }
 

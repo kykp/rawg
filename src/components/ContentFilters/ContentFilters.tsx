@@ -12,7 +12,6 @@ export const ContentFilters = () => {
         <div className={styles.filters}>
           <button className={styles.filters__button}>
             <div className={styles.block}>
-              <span className={styles.block__title}>Filtred by:</span>
               <span className={styles.block__subtitle}>
                 {filter.slug.toUpperCase()}
               </span>

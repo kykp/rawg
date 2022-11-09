@@ -2,7 +2,8 @@ import { createSlice, PayloadAction, AnyAction } from "@reduxjs/toolkit";
 import {
   fetchGames,
   fetchMoreGames,
-  fetchMoreGamesByFilter,
+  fetchGamesByPlatform,
+  fetchMoreGamesByPlatform,
   fetchGamesBySearch,
   fetchMoreGamesBySearch,
 } from "./asyncActions";
@@ -31,7 +32,7 @@ export type Genres = {
   name: string;
 };
 
-type Filter = {
+export type Filter = {
   id: number | null;
   slug: string;
 };
@@ -88,14 +89,14 @@ export const gamesSlice = createSlice({
       .addCase(fetchMoreGames.rejected, (state) => {
         state.error = "Warning";
       })
-      .addCase(fetchMoreGamesByFilter.fulfilled, (state, action) => {
+      .addCase(fetchMoreGamesByPlatform.fulfilled, (state, action) => {
         state.games = [...state.games, ...action.payload];
         state.loading = false;
       })
-      .addCase(fetchMoreGamesByFilter.pending, (state) => {
+      .addCase(fetchMoreGamesByPlatform.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchMoreGamesByFilter.rejected, (state) => {
+      .addCase(fetchMoreGamesByPlatform.rejected, (state) => {
         state.error = "Warning";
       })
       .addCase(fetchGamesBySearch.fulfilled, (state, action) => {
@@ -118,6 +119,17 @@ export const gamesSlice = createSlice({
       .addCase(fetchMoreGamesBySearch.rejected, (state) => {
         state.error = "Warning";
       })
+      .addCase(fetchGamesByPlatform.fulfilled, (state, action) => {
+        state.games = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchGamesByPlatform.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchGamesByPlatform.rejected, (state) => {
+        state.error = "Warning";
+      })
+
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
         state.loading = false;

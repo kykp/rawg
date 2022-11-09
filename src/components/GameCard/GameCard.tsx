@@ -25,7 +25,7 @@ export const GameCard = ({
       <div className={styles.card__footer}>
         <div className={styles.platforms}>
           <ul className={styles.platforms_items}>
-            {parent_platforms.map((el) => (
+            {parent_platforms?.map((el) => (
               <CardsPlatfotmIcons key={el.platform.id} {...el} />
             ))}
           </ul>
@@ -46,7 +46,7 @@ export const GameCard = ({
                 <p>genres:</p>
               </div>
               <div className={styles.description__genres}>
-                {genres.map((el) => (
+                {genres?.map((el) => (
                   <CardGenres key={el.id} {...el} />
                 ))}
               </div>

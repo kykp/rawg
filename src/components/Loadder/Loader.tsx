@@ -3,7 +3,7 @@ import styles from "./loader.module.scss";
 import { useAppSelector, useAppDispatch } from "../../helper/hook";
 import {
   fetchMoreGames,
-  fetchMoreGamesByFilter,
+  fetchMoreGamesByPlatform,
   fetchMoreGamesBySearch,
 } from "../../store/games/asyncActions";
 import {
@@ -34,32 +34,31 @@ export const Loader = () => {
         (entries) => {
           if (entries[0].isIntersecting && !error) {
             setPage((prevPage) => prevPage + 1);
-            console.log("Visible");
-            dispatch(fetchMoreGames({ page }));
-            // if (!filter) {
-            //   console.log(true);
-            // } else {
-            //   console.log(false);
-            // }
-            // dispatch(fetchMoreGamesBySearch({ page, search }));
-            // if (!filter.id) {
-            //   dispatch(fetchMoreGamesBySearch({ page, search }));
-            // }
-            // if (search) dispatch(fetchMoreGamesBySearch({ page, search }));
-            // if (filter.id === -1) dispatch(fetchMoreGames({ page }));
-            // if (filter.id !== -1 && filter.id)
-            //   dispatch(fetchMoreGamesByFilter({ page, filter: filter.id }));
+            if (filter.id === null && search === "") {
+              console.log("dispatched fetchMoreGames");
+              dispatch(fetchMoreGames({ page }));
+            } else if (filter.id !== null) {
+              console.log("dispatched fetchMoreGamesByPlatform");
+              dispatch(fetchMoreGamesByPlatform({ page, filter: filter.id }));
+            } else if (search !== "") {
+              console.log("dispatched Search more");
+              dispatch(fetchMoreGamesBySearch({ page, search }));
+            }
           }
         },
         { rootMargin: "50px" }
       );
       if (node) observer.current.observe(node);
     },
-    [page, dispatch, error, loading]
+    [page, dispatch, error, loading, filter.id, search]
   );
 
-  //   console.log(filter);
-  console.log(error);
+  useEffect(() => {
+    if (filter.id !== null) {
+      setPage(2);
+    }
+  }, [filter]);
+
   console.log("render Loader");
   return (
     <>

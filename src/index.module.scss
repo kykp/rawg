@@ -9,17 +9,14 @@ $ff-primary: 'Poppins', sans-serif;
 $fs-lm-main: 30px;
 $fs-main: 16px;
 $max-size-primary: 1920px;
-
-* {
- box-sizing: border-box;   
-}
-
+ 
 body {
     font-family: $ff-primary;
     color: $general-text-color;  
     margin: 0;
     background-color: $bgc-main;
     text-rendering: optimizeLegibility;
+    box-sizing: border-box;  
 }
 
 input:focus, button:focus, textarea:focus {
