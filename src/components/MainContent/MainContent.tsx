@@ -13,6 +13,7 @@ import styles from "./mainContent.module.scss";
 
 import clsx from "clsx";
 import { ThreeDots } from "react-loader-spinner";
+import { ContentFilters } from "../ContentFilters/ContentFilters";
 
 export const MainContent = () => {
   const dispatch = useAppDispatch();
@@ -51,9 +52,7 @@ export const MainContent = () => {
     <main className={clsx(styles.main, styles.page)}>
       <LeftMenu />
       <section className={styles.wrapper}>
-        <div className={styles.filters}>
-          <button>Hello</button>
-        </div>
+        <ContentFilters />
         <GamesGallery />
         {!loading ? (
           <div ref={lastCardElementRef} className={styles.loader}>

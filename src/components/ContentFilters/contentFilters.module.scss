@@ -1,0 +1,28 @@
+@import "../../index.module.scss";
+
+.filters{
+    display: flex;  
+    width: 80%; 
+    &__button {
+        width: 200px; 
+        background-color: $bgc-card;
+        color: white; 
+        border-radius: 5px;
+        padding: 10px 10px;
+    }
+}
+
+.block {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    
+    &__title {
+        font-size: 12px;
+        color: $tertiary-text-color
+    }
+    &__subtitle { 
+        color: $tertiary-text-color
+    }
+}
