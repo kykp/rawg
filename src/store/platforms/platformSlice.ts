@@ -4,6 +4,7 @@ import { fetchPlatforms } from "./asyncActions";
 export type Platform = {
   id: number;
   name: string;
+  slug: string;
 };
 
 type GamesState = {

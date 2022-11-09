@@ -1,8 +1,14 @@
 import { createSlice, PayloadAction, AnyAction } from "@reduxjs/toolkit";
-import { fetchMoreGames } from "./asyncActions";
+import {
+  fetchGames,
+  fetchMoreGames,
+  fetchMoreGamesByFilter,
+  fetchGamesBySearch,
+  fetchMoreGamesBySearch,
+} from "./asyncActions";
 
 export type Game = {
-  id: string;
+  id: number;
   slug: string;
   name: string;
   released: string;
@@ -16,6 +22,7 @@ export type ParentPlatforms = {
   platform: {
     id: number;
     name: string;
+    slug: string;
   };
 };
 
@@ -24,29 +31,73 @@ export type Genres = {
   name: string;
 };
 
+type Filter = {
+  id: number;
+  slug: string;
+};
+
 type GamesState = {
   games: Game[];
   loading: boolean;
   error: string | null;
+  filter: Filter;
+  search: string;
 };
 
 const initialState: GamesState = {
   games: [],
+  filter: { id: -1, slug: "" },
   loading: false,
   error: null,
+  search: "",
 };
 
 export const gamesSlice = createSlice({
   name: "games",
   initialState,
-  reducers: {},
+  reducers: {
+    addFilter: (state, action: PayloadAction<{ id: number; slug: string }>) => {
+      state.filter = action.payload;
+    },
+    addSearch: (state, action: PayloadAction<{ search: string }>) => {
+      state.search = action.payload.search;
+    },
+  },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchGames.fulfilled, (state, action) => {
+        state.games = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchGames.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(fetchMoreGames.fulfilled, (state, action) => {
         state.games = [...state.games, ...action.payload];
         state.loading = false;
       })
       .addCase(fetchMoreGames.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMoreGamesByFilter.fulfilled, (state, action) => {
+        state.games = [...state.games, ...action.payload];
+        state.loading = false;
+      })
+      .addCase(fetchMoreGamesByFilter.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchGamesBySearch.fulfilled, (state, action) => {
+        state.games = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchGamesBySearch.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMoreGamesBySearch.fulfilled, (state, action) => {
+        state.games = [...state.games, ...action.payload];
+        state.loading = false;
+      })
+      .addCase(fetchMoreGamesBySearch.pending, (state) => {
         state.loading = true;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
@@ -56,7 +107,7 @@ export const gamesSlice = createSlice({
   },
 });
 
-// export const {} = gamesSlice.actions;
+export const { addFilter, addSearch } = gamesSlice.actions;
 
 export default gamesSlice.reducer;
 

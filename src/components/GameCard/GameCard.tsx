@@ -51,6 +51,12 @@ export const GameCard = ({
                 ))}
               </div>
             </li>
+            <li className={styles.description__item}>
+              <div>
+                <p>rating:</p>
+              </div>
+              <div className={styles.description__genres}>{rating}</div>
+            </li>
           </ul>
         </div>
       </div>

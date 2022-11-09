@@ -4,14 +4,21 @@ import styles from "../GameCard/gameCard.module.scss";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 type TCardImage = {
   name: string;
   image: string;
 };
 
-export const CardImage = ({ image, name }: TCardImage) => (
-  <div className={styles.pictures}>
-    <LazyLoadImage alt={name} effect="blur" src={image} />
-  </div>
-);
+export const CardImage = ({ image, name }: TCardImage) =>
+  image ? (
+    <div className={styles.pictures}>
+      <LazyLoadImage alt={name} effect="blur" src={image} />
+    </div>
+  ) : (
+    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+      <Skeleton width={385} height={220} />
+    </SkeletonTheme>
+  );

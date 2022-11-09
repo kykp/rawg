@@ -3,7 +3,12 @@ import React, { useState, useCallback, useRef } from "react";
 import { LeftMenu } from "../LeftMenu/LeftMenu.tsx";
 import { GamesGallery } from "../GamesGallery/GamesGallery.tsx";
 import { useAppSelector, useAppDispatch } from "../../helper/hook";
-import { fetchMoreGames } from "../../store/games/asyncActions";
+import {
+  fetchMoreGames,
+  fetchMoreGamesByFilter,
+  fetchMoreGamesBySearch,
+} from "../../store/games/asyncActions";
+import { selectFilters, selectSearch } from "../../store/games/selectors";
 import styles from "./mainContent.module.scss";
 
 import clsx from "clsx";
@@ -12,25 +17,36 @@ import { ThreeDots } from "react-loader-spinner";
 export const MainContent = () => {
   const dispatch = useAppDispatch();
   const loading = useAppSelector((store) => store.games.loading);
-  const [page, setPage] = useState(1);
+  const filter = useAppSelector(selectFilters);
+  const search = useAppSelector(selectSearch);
+
+  const [page, setPage] = useState(2);
 
   let observer = useRef<IntersectionObserver | null>(null);
   let lastCardElementRef = useCallback(
     (el: any) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          setPage(page + 1);
-          dispatch(fetchMoreGames({ page }));
-        }
-      });
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            setPage(page + 1);
+
+            if (search) dispatch(fetchMoreGamesBySearch({ page, search }));
+            if (filter.id === -1) dispatch(fetchMoreGames({ page }));
+            if (filter.id !== -1)
+              dispatch(fetchMoreGamesByFilter({ page, filter: filter.id }));
+          }
+        },
+        { rootMargin: "400px" }
+      );
       if (el) observer.current.observe(el);
     },
-    [loading, page, dispatch]
+    [loading, page, dispatch, filter.id, search]
   );
 
   console.log(loading);
+  console.log(filter);
   return (
     <main className={clsx(styles.main, styles.page)}>
       <LeftMenu />
