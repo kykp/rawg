@@ -5,12 +5,13 @@ import { useAppSelector } from "../../helper/hook";
 import { GameCard } from "../GameCard/GameCard";
 import { CardSceleton } from "../CardSceleton/CardSceleton";
 import { selectGamesByFilter } from "../../store/games/selectors";
+
 const plugsNumbers = 10;
 
 export const GamesGallery = () => {
   const data = useAppSelector(selectGamesByFilter);
 
-  console.log("game-gallery", data);
+  console.log("render game-gallery", data);
   return (
     <div className={styles.gamesGallery}>
       {data.length

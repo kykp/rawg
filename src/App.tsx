@@ -10,6 +10,7 @@ import "./index.module.scss";
 function App() {
   const dispatch = useAppDispatch();
 
+  console.log("render App");
   useEffect(() => {
     dispatch(fetchGames());
     dispatch(fetchPlatforms());

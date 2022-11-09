@@ -8,7 +8,7 @@ export const ContentFilters = () => {
 
   return (
     <>
-      {filter.id !== -1 && (
+      {filter.id !== null && (
         <div className={styles.filters}>
           <button className={styles.filters__button}>
             <div className={styles.block}>

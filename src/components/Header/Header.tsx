@@ -20,6 +20,8 @@ export const Header = () => {
     dispatch(addSearch({ search }));
     dispatch(fetchGamesBySearch({ search }));
   };
+
+  console.log("render Header");
   return (
     <header className={clsx(styles.header, styles.page)}>
       <div className={styles.logo}>

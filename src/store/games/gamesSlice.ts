@@ -32,23 +32,23 @@ export type Genres = {
 };
 
 type Filter = {
-  id: number;
+  id: number | null;
   slug: string;
 };
 
 type GamesState = {
   games: Game[];
   loading: boolean;
-  error: string | null;
+  error: string;
   filter: Filter;
   search: string;
 };
 
 const initialState: GamesState = {
   games: [],
-  filter: { id: -1, slug: "" },
+  filter: { id: null, slug: "" },
   loading: false,
-  error: null,
+  error: "",
   search: "",
 };
 
@@ -61,6 +61,9 @@ export const gamesSlice = createSlice({
     },
     addSearch: (state, action: PayloadAction<{ search: string }>) => {
       state.search = action.payload.search;
+    },
+    clearError: (state) => {
+      state.error = "";
     },
   },
   extraReducers: (builder) => {
@@ -122,7 +125,7 @@ export const gamesSlice = createSlice({
   },
 });
 
-export const { addFilter, addSearch } = gamesSlice.actions;
+export const { addFilter, addSearch, clearError } = gamesSlice.actions;
 
 export default gamesSlice.reducer;
 

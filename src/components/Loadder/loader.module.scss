@@ -1,0 +1,8 @@
+.loader { 
+    margin: 25px 0;
+    display: flex;
+    justify-content: center;
+    &__button {
+        width: 200px;
+    }
+}
