@@ -66,6 +66,10 @@ export const gamesSlice = createSlice({
     clearError: (state) => {
       state.error = "";
     },
+    clearFilter: (state) => {
+      state.filter.id = null;
+      state.filter.slug = "";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -137,7 +141,8 @@ export const gamesSlice = createSlice({
   },
 });
 
-export const { addFilter, addSearch, clearError } = gamesSlice.actions;
+export const { addFilter, addSearch, clearError, clearFilter } =
+  gamesSlice.actions;
 
 export default gamesSlice.reducer;
 
