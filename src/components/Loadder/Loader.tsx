@@ -10,6 +10,7 @@ import {
   selectFilters,
   selectSearch,
   selectError,
+  selectResearchResults,
 } from "../../store/games/selectors";
 import { ThreeDots } from "react-loader-spinner";
 import { clearError } from "../../store/games/gamesSlice";
@@ -20,6 +21,7 @@ export const Loader = () => {
   const error = useAppSelector(selectError);
   const filter = useAppSelector(selectFilters);
   const search = useAppSelector(selectSearch);
+  const searchResult = useAppSelector(selectResearchResults);
 
   const [page, setPage] = useState(2);
 
@@ -46,7 +48,7 @@ export const Loader = () => {
             }
           }
         },
-        { rootMargin: "50px" }
+        { threshold: 1 }
       );
       if (node) observer.current.observe(node);
     },
@@ -59,7 +61,9 @@ export const Loader = () => {
     }
   }, [filter]);
 
-  console.log("render Loader");
+  if (searchResult === 0) {
+    return <></>;
+  }
   return (
     <>
       {!loading ? (
@@ -74,7 +78,9 @@ export const Loader = () => {
             visible={true}
           />
         </div>
-      ) : null}
+      ) : (
+        <div>{error}</div>
+      )}
     </>
   );
 };

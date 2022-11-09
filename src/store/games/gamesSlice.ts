@@ -43,6 +43,7 @@ type GamesState = {
   error: string;
   filter: Filter;
   search: string;
+  searchCounter: number | null;
 };
 
 const initialState: GamesState = {
@@ -51,6 +52,7 @@ const initialState: GamesState = {
   loading: false,
   error: "",
   search: "",
+  searchCounter: null,
 };
 
 export const gamesSlice = createSlice({
@@ -69,6 +71,9 @@ export const gamesSlice = createSlice({
     clearFilter: (state) => {
       state.filter.id = null;
       state.filter.slug = "";
+    },
+    setSearchCounter: (state, action: PayloadAction<{ counter: number }>) => {
+      state.searchCounter = action.payload.counter;
     },
   },
   extraReducers: (builder) => {
@@ -141,8 +146,13 @@ export const gamesSlice = createSlice({
   },
 });
 
-export const { addFilter, addSearch, clearError, clearFilter } =
-  gamesSlice.actions;
+export const {
+  addFilter,
+  addSearch,
+  clearError,
+  clearFilter,
+  setSearchCounter,
+} = gamesSlice.actions;
 
 export default gamesSlice.reducer;
 

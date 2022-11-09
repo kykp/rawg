@@ -1,4 +1,4 @@
-import { Game } from "./gamesSlice";
+import { Game, setSearchCounter } from "./gamesSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const API_URL = "https://api.rawg.io/api";
@@ -101,23 +101,27 @@ export const fetchGamesBySearch = createAsyncThunk<
   Game[],
   { search: string },
   { rejectValue: string }
->("games/fetchGamesBySearch", async ({ search }, { rejectWithValue }) => {
-  const response = await fetch(
-    `${API_URL}/games?key=${api_key}&page=1&page_size=${size}&search=${search}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+>(
+  "games/fetchGamesBySearch",
+  async ({ search }, { rejectWithValue, dispatch }) => {
+    const response = await fetch(
+      `${API_URL}/games?key=${api_key}&page=1&page_size=${size}&search=${search}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  if (!response.ok) {
-    return rejectWithValue(`server error`);
+    if (!response.ok) {
+      return rejectWithValue(`server error`);
+    }
+    const data = await response.json();
+    dispatch(setSearchCounter({ counter: data.count }));
+    return data.results;
   }
-  const data = await response.json();
-  return data.results;
-});
+);
 
 export const fetchMoreGamesBySearch = createAsyncThunk<
   Game[],
