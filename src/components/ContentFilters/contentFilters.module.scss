@@ -4,17 +4,17 @@
     display: flex;  
     width: 80%; 
     &__button {
-        width: 200px; 
+        width: fit-content; 
+        width: 300px;
         background-color: $bgc-card;
         color: white; 
-        border-radius: 5px;
-        padding: 10px 10px;
+        border-radius: 5px; 
     }
 }
 
 .block {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
     
@@ -23,6 +23,8 @@
         color: $tertiary-text-color
     }
     &__subtitle { 
+        flex: 1;
+        margin-left: 50px;
         color: $tertiary-text-color
     }
 }
