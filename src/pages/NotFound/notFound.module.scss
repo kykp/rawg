@@ -1,9 +1,9 @@
-
 .noresults{
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin: 0 auto; 
+    align-items: center;
 
     &__title {
         font-size: 25px;

@@ -138,7 +138,6 @@ export const gamesSlice = createSlice({
       .addCase(fetchGamesByPlatform.rejected, (state) => {
         state.error = "Warning";
       })
-
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         state.error = action.payload;
         state.loading = false;

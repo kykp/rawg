@@ -4,22 +4,14 @@ import styles from "./gamesGallery.module.scss";
 import { useAppSelector } from "../../helper/hook";
 import { GameCard } from "../GameCard/GameCard";
 import { CardSceleton } from "../CardSceleton/CardSceleton";
-import {
-  selectGamesByFilter,
-  selectResearchResults,
-} from "../../store/games/selectors";
-import { SearchResult } from "../SearchResult/SearchResult";
+import { selectGamesByFilter } from "../../store/games/selectors";
 
 const plugsNumbers = 10;
 
 export const GamesGallery = () => {
   const data = useAppSelector(selectGamesByFilter);
-  const searchResult = useAppSelector(selectResearchResults);
 
-  if (searchResult === 0) {
-    return <SearchResult />;
-  }
-
+  console.log(data);
   return (
     <div className={styles.gamesGallery}>
       {data.length

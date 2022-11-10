@@ -10,10 +10,8 @@ import {
   selectFilters,
   selectSearch,
   selectError,
-  selectResearchResults,
 } from "../../store/games/selectors";
 import { ThreeDots } from "react-loader-spinner";
-import { clearError } from "../../store/games/gamesSlice";
 
 export const Loader = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +19,6 @@ export const Loader = () => {
   const error = useAppSelector(selectError);
   const filter = useAppSelector(selectFilters);
   const search = useAppSelector(selectSearch);
-  const searchResult = useAppSelector(selectResearchResults);
 
   const [page, setPage] = useState(2);
 
@@ -37,13 +34,10 @@ export const Loader = () => {
           if (entries[0].isIntersecting && !error) {
             setPage((prevPage) => prevPage + 1);
             if (filter.id === null && search === "") {
-              console.log("dispatched fetchMoreGames");
               dispatch(fetchMoreGames({ page }));
             } else if (filter.id !== null) {
-              console.log("dispatched fetchMoreGamesByPlatform");
               dispatch(fetchMoreGamesByPlatform({ page, filter: filter.id }));
             } else if (search !== "") {
-              console.log("dispatched Search more");
               dispatch(fetchMoreGamesBySearch({ page, search }));
             }
           }
@@ -61,9 +55,6 @@ export const Loader = () => {
     }
   }, [filter]);
 
-  if (searchResult === 0) {
-    return <></>;
-  }
   return (
     <>
       {!loading ? (

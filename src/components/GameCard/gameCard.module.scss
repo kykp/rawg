@@ -8,8 +8,7 @@
     background-color: $bgc-card; 
     border-radius: 10px; 
     transition: scale 0.3s ease-in-out;
-    &:hover {
-        cursor: pointer;
+    &:hover { 
         scale: 1.01;
     }
 }
@@ -48,8 +47,7 @@
         gap:5px;
         margin-left: 5px;
     }
-}
-
+} 
 .description {
     width: 100%;
     margin-top: 15px;

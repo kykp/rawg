@@ -1,0 +1,61 @@
+ @import "../../index.module.scss";
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.navigations {
+    display: flex; 
+    align-items: center; 
+    &_text {
+        color: $secondary-text-color;
+    }
+    &_attribute {
+        color: $secondary-text-color;
+    }
+    &_text:hover {
+        cursor: pointer;
+        color: $tertiary-text-color;
+    }
+} 
+.game {  
+}
+.content {
+    display: flex; 
+}
+.title {
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+}
+.platforms {
+    display: flex;
+    justify-content: center;
+    gap: 30px; 
+}
+.pictures {
+    margin: 20px auto;
+    max-width: 50%;
+
+    & img { 
+        opacity: 0.6;
+        width: 100%;
+        border-radius: 25px;
+    }
+}
+.descriptions {
+    width: 90%;
+    font-weight: 200;
+    letter-spacing: 0.1rem;
+    margin: 0 auto; 
+    font-size: 20px;
+    word-break: break-all;
+}
+
+.slider {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: fit-content;
+}

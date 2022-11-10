@@ -20,6 +20,7 @@ export const selectFilters = createSelector(
 
 export const selectSearch = createSelector(getSearch, (games) => games.search);
 export const selectError = createSelector(getError, (game) => game.error);
+
 export const selectResearchResults = createSelector(
   getSearchResults,
   (game) => game.searchCounter

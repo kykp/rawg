@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import styles from "./gameCard.module.scss";
 
 import { Game } from "../../store/games/gamesSlice";
@@ -19,9 +19,11 @@ export const GameCard = ({
 }: Game) => {
   return (
     <div className={styles.card}>
-      <div className={styles.pictures}>
-        <CardImage image={background_image} name={name} />
-      </div>
+      <Link to={`/game/${slug}`}>
+        <div className={styles.pictures}>
+          <CardImage image={background_image} name={name} />
+        </div>
+      </Link>
       <div className={styles.card__footer}>
         <div className={styles.platforms}>
           <ul className={styles.platforms_items}>
@@ -30,7 +32,11 @@ export const GameCard = ({
             ))}
           </ul>
         </div>
-        <div className={styles.title}>{name}</div>
+
+        <Link to={`/game/${slug}`}>
+          <div className={styles.title}>{name}</div>
+        </Link>
+
         <div className={styles.description}>
           <ul className={styles.description__items}>
             <li className={styles.description__item}>
