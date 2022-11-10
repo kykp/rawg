@@ -4,7 +4,7 @@ import { CardsPlatfotmIcons } from "../../components/CardsPlatfotmIcons/CardsPla
 import { useAppDispatch, useAppSelector } from "../../helper/hook";
 import { fetchGameDetails } from "../../store/game/asyncActions";
 import { selectCurrentGame } from "../../store/game/selectors";
-import { Slider } from "../../components/Slider/Slider";
+// import { Slider } from "../../components/Slider/Slider";
 
 import styles from "./catalog.module.scss";
 
@@ -27,9 +27,7 @@ export const Catalog = () => {
   console.log(currentGame);
   return (
     <div className={styles.wrapper}>
-      <div className={styles.slider}>
-        <Slider />
-      </div>
+      <div className={styles.slider}>{/* <Slider /> */}</div>
       {/* <div className={styles.game}>
         <div className={styles.navigations}>
           <Link to="/">

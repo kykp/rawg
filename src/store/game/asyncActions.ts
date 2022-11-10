@@ -10,7 +10,7 @@ export const fetchGameDetails = createAsyncThunk<
   AboutGame,
   { slug: string },
   { rejectValue: string }
->("games/fetchGameDetails", async ({ slug }, { rejectWithValue }) => {
+>("game/fetchGameDetails", async ({ slug }, { rejectWithValue }) => {
   const response = await fetch(`${API_URL}/games/${slug}?key=${api_key}`, {
     method: "GET",
     headers: {
@@ -29,7 +29,7 @@ export const fetchGameScreenshots = createAsyncThunk<
   Screenshots,
   { slug: string },
   { rejectValue: string }
->("games/fetchGameDetails", async ({ slug }, { rejectWithValue }) => {
+>("game/fetchGameScreenshots", async ({ slug }, { rejectWithValue }) => {
   const response = await fetch(`${API_URL}/games/${slug}?key=${api_key}`, {
     method: "GET",
     headers: {

@@ -32,6 +32,10 @@ export type AboutGame = {
   description_raw: string;
 };
 
+type SynteticObj = {
+  id: number;
+  name: string;
+};
 type GameState = {
   currentGame: AboutGame;
   currentGameScreens: Screenshots;
