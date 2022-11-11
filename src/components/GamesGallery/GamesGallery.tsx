@@ -14,7 +14,7 @@ export const GamesGallery = () => {
   console.log(data);
   return (
     <div className={styles.gamesGallery}>
-      {data.length
+      {data?.length
         ? data.map((card) => <GameCard key={card.slug} {...card} />)
         : [...Array(plugsNumbers)].map((e, i) => <CardSceleton key={i} />)}
     </div>

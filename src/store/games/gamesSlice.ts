@@ -44,6 +44,7 @@ type GamesState = {
   filter: Filter;
   search: string;
   searchCounter: number | null;
+  sortingDirection: boolean | null;
 };
 
 const initialState: GamesState = {
@@ -53,6 +54,7 @@ const initialState: GamesState = {
   error: "",
   search: "",
   searchCounter: null,
+  sortingDirection: null,
 };
 
 export const gamesSlice = createSlice({
@@ -74,6 +76,12 @@ export const gamesSlice = createSlice({
     },
     setSearchCounter: (state, action: PayloadAction<{ counter: number }>) => {
       state.searchCounter = action.payload.counter;
+    },
+    switchSort: (
+      state,
+      action: PayloadAction<{ direction: boolean | null }>
+    ) => {
+      state.sortingDirection = action.payload.direction;
     },
   },
   extraReducers: (builder) => {
@@ -151,6 +159,7 @@ export const {
   clearError,
   clearFilter,
   setSearchCounter,
+  switchSort,
 } = gamesSlice.actions;
 
 export default gamesSlice.reducer;

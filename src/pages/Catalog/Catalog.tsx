@@ -9,6 +9,7 @@ import {
 import {
   selectCurrentGame,
   selectCurrentScreenshots,
+  selectLoading,
 } from "../../store/game/selectors";
 
 import styles from "./catalog.module.scss";
@@ -16,10 +17,13 @@ import { Navigations } from "./Components/Navigations";
 import { Header } from "./Components/Header";
 import { Description } from "./Components/Description";
 import { Cslider } from "./Components/Cslider";
+import { Cskeleton } from "./Components/Cskeleton";
 
 export const Catalog = () => {
   const currentGame = useAppSelector(selectCurrentGame);
   const currentScreens = useAppSelector(selectCurrentScreenshots);
+  const isLoading = useAppSelector(selectLoading);
+
   const dispatch = useAppDispatch();
   const slug = useParams();
 
@@ -43,25 +47,31 @@ export const Catalog = () => {
   }, [dispatch, slug.id]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.game}>
-        <Navigations name={name} />
-        <Header
-          name={name}
-          parent_platforms={parent_platforms}
-          background_image={background_image}
-          description={description}
-        />
-        <Description
-          parent_platforms={parent_platforms}
-          genres={genres}
-          developers={developers}
-          tags={tags}
-          website={website}
-          released={released}
-        />
-        <Cslider currentScreens={currentScreens} />
-      </div>
-    </div>
+    <>
+      {isLoading ? (
+        <Cskeleton />
+      ) : (
+        <div className={styles.wrapper}>
+          <div className={styles.game}>
+            <Navigations name={name} />
+            <Header
+              name={name}
+              parent_platforms={parent_platforms}
+              background_image={background_image}
+              description={description}
+            />
+            <Description
+              parent_platforms={parent_platforms}
+              genres={genres}
+              developers={developers}
+              tags={tags}
+              website={website}
+              released={released}
+            />
+            <Cslider currentScreens={currentScreens} />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
