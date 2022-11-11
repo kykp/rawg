@@ -32,19 +32,19 @@ export type AboutGame = {
   description_raw: string;
 };
 
-type SynteticObj = {
+export type SynteticObj = {
   id: number;
   name: string;
 };
 type GameState = {
   currentGame: AboutGame;
-  currentGameScreens: Screenshots;
+  currentGameScreens: Screenshots[];
   error: string;
   loading: boolean;
 };
 const initialState: GameState = {
   currentGame: {} as AboutGame,
-  currentGameScreens: {} as Screenshots,
+  currentGameScreens: [],
   error: "",
   loading: false,
 };

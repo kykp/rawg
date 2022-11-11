@@ -11,7 +11,7 @@ import clsx from "clsx";
 export const Layout = () => {
   return (
     <>
-      <Header />;
+      <Header />
       <main className={clsx(styles.main, styles.page)}>
         <LeftMenu />
         <Outlet />

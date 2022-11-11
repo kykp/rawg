@@ -26,17 +26,19 @@ export const fetchGameDetails = createAsyncThunk<
 });
 
 export const fetchGameScreenshots = createAsyncThunk<
-  Screenshots,
+  Screenshots[],
   { slug: string },
   { rejectValue: string }
 >("game/fetchGameScreenshots", async ({ slug }, { rejectWithValue }) => {
-  const response = await fetch(`${API_URL}/games/${slug}?key=${api_key}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
+  const response = await fetch(
+    `${API_URL}/games/${slug}/screenshots?key=${api_key}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   if (!response.ok) {
     return rejectWithValue(`server error`);
   }

@@ -1,10 +1,15 @@
  @import "../../index.module.scss";
+
 .wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding-bottom: 100px;
 }
-
+.game {
+    width: 80%;
+    margin: 0 auto;
+}
 .navigations {
     display: flex; 
     align-items: center; 
@@ -19,10 +24,10 @@
         color: $tertiary-text-color;
     }
 } 
-.game {  
-}
-.content {
+.content { 
     display: flex; 
+    margin: 0 auto;
+    max-width: 80%;
 }
 .title {
     display: flex;
@@ -37,25 +42,86 @@
 .pictures {
     margin: 20px auto;
     max-width: 50%;
-
     & img { 
         opacity: 0.6;
         width: 100%;
         border-radius: 25px;
     }
 }
-.descriptions {
-    width: 90%;
-    font-weight: 200;
-    letter-spacing: 0.1rem;
-    margin: 0 auto; 
-    font-size: 20px;
+.descriptions { 
+    font-weight: 200;  
+    font-size: 12px;
     word-break: break-all;
-}
 
-.slider {
+    & h2 {
+        font-size: 25px;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+} 
+.item {  
     display: flex;
     justify-content: center;
+    align-items: center;
+    background-color: wheat;
+    color : black; 
+}
+.top {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    justify-content: center;
+}
+
+.about{
     margin: 0 auto;
-    width: fit-content;
+    display: flex;  
+    gap: 40px;
+    max-width: 80%;
+    font-weight: 200;  
+    color: $tertiary-text-color;
+    &_title {
+        font-weight: 400;
+        color: $general-text-color;
+    }
+    &_item {
+         text-align: center;
+    }
+}
+.tags {  
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-top: 50px;
+    font-weight: 200; 
+    color: $tertiary-text-color;
+    &_title {
+        font-weight: 400;
+        color: $general-text-color;
+    }  
+    &_items{
+        display: flex;
+        max-width: 80%;
+        font-size: 10px;
+        flex-wrap: wrap;
+        gap:20px; 
+    }
+    &_p:hover {
+        cursor: pointer;
+        color:$general-text-color;
+    }
+     
+}
+
+.slider {  
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+
+    &_title {
+        margin-bottom: 25px;
+    }
 }
