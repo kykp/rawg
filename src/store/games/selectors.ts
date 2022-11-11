@@ -20,7 +20,7 @@ export const selectFilters = createSelector(
 );
 export const selectSortDirection = createSelector(
   getSortDirection,
-  (games) => games.sortingDirection
+  (games) => games.sortingDate
 );
 export const selectSearch = createSelector(getSearch, (games) => games.search);
 export const selectError = createSelector(getError, (game) => game.error);
@@ -33,28 +33,21 @@ export const selectResearchResults = createSelector(
 export const selectGamesByFilter = createSelector(
   [selectAllGames, selectFilters, selectSortDirection],
   (allGames, activeFilter, sortDirection) => {
-    if (activeFilter.slug === "" && sortDirection === null) {
-      return allGames;
+    const newArray = [...allGames].sort((a, b) => {
+      const objA = new Date(a.released);
+      const objB = new Date(b.released);
+      return sortDirection
+        ? objA.getTime() - objB.getTime()
+        : objB.getTime() - objA.getTime();
+    });
+
+    if (activeFilter.slug === "") {
+      return newArray;
     }
-    if (sortDirection) {
-      const sortedAsc = [...allGames].sort((a, b) => {
-        const objA = new Date(a.released);
-        const objB = new Date(b.released);
-        return objA.getTime() - objB.getTime();
-      });
-      return sortedAsc;
-    }
-    if (!sortDirection) {
-      const sortedAsc = [...allGames].sort((a, b) => {
-        const objA = new Date(a.released);
-        const objB = new Date(b.released);
-        return objB.getTime() - objA.getTime();
-      });
-      return sortedAsc;
-    }
+
     if (activeFilter.slug !== "") {
       const newArr: Game[] = [];
-      allGames.forEach((el) =>
+      newArray.forEach((el) =>
         el.parent_platforms.forEach((item) => {
           if (item.platform.slug === activeFilter.slug) {
             newArr.push(el);

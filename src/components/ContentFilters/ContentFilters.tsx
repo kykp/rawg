@@ -6,7 +6,7 @@ import {
   selectSortDirection,
 } from "../../store/games/selectors";
 import { ReactComponent as Cross } from "../../assets/images/cross.svg";
-import { clearFilter, switchSort } from "../../store/games/gamesSlice";
+import { clearFilter, switchDateSort } from "../../store/games/gamesSlice";
 
 import { BsArrowDownSquare, BsArrowUpSquare } from "react-icons/bs";
 
@@ -20,7 +20,7 @@ export const ContentFilters = () => {
   };
 
   const onHandleSort = () => {
-    dispatch(switchSort({ direction: !sortDirection }));
+    dispatch(switchDateSort({ direction: !sortDirection }));
   };
 
   console.log(sortDirection);
