@@ -8,6 +8,9 @@
     background-color: $bgc-card; 
     border-radius: 10px; 
     transition: scale 0.3s ease-in-out;
+    &_link {
+        width: 100%;
+    }
     &:hover { 
         scale: 1.01;
     }
@@ -71,4 +74,15 @@
         flex-wrap: wrap;
         justify-content: end;  
     }
+}
+
+.noimage__block {
+    width: 100%;
+    display: flex;
+    justify-content: center ; 
+}
+.noimage__img {
+   width: 50%!important;
+   object-fit: cover;
+
 }

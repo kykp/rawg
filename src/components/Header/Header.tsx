@@ -8,7 +8,6 @@ import clsx from "clsx";
 import { Input } from "./Input";
 
 export const Header = () => {
-  console.log("render Header");
   return (
     <header className={clsx(styles.header, styles.page)}>
       <div className={styles.logo}>

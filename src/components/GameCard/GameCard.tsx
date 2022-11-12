@@ -19,7 +19,7 @@ export const GameCard = ({
 }: Game) => {
   return (
     <div className={styles.card}>
-      <Link to={`/game/${slug}`}>
+      <Link to={`/game/${slug}`} className={styles.card_link}>
         <div className={styles.pictures}>
           <CardImage image={background_image} name={name} />
         </div>

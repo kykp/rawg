@@ -23,7 +23,6 @@ export const Input = () => {
       onHandleClick();
     }
   };
-  console.log("header input");
   return (
     <>
       <input

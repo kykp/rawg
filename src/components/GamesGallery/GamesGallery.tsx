@@ -6,7 +6,7 @@ import { GameCard } from "../GameCard/GameCard";
 import { CardSceleton } from "../CardSceleton/CardSceleton";
 import { selectGamesByFilter } from "../../store/games/selectors";
 
-const plugsNumbers = 10;
+const plugsSkeletonNumbers = 10;
 
 export const GamesGallery = () => {
   const data = useAppSelector(selectGamesByFilter);
@@ -16,7 +16,9 @@ export const GamesGallery = () => {
     <div className={styles.gamesGallery}>
       {data?.length
         ? data.map((card) => <GameCard key={card.slug} {...card} />)
-        : [...Array(plugsNumbers)].map((e, i) => <CardSceleton key={i} />)}
+        : [...Array(plugsSkeletonNumbers)].map((e, i) => (
+            <CardSceleton key={i} />
+          ))}
     </div>
   );
 };

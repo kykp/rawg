@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../helper/hook";
+import React from "react";
+import { useAppDispatch } from "../../helper/hook";
+import { Link } from "react-router-dom";
 import styles from "./leftMenuItem.module.scss";
 
 import { addFilter } from "../../store/games/gamesSlice";
@@ -28,45 +29,49 @@ export const LeftMenuItem = ({ id, name, slug }: Platform) => {
   };
 
   return (
-    <li className={styles.item} onClick={onHandleClick}>
-      <span className={styles.item_img}>
-        {name === "Web" ? <Web fill="white" className={styles.image} /> : null}
-        {name === "SEGA" ? (
-          <Sega fill="white" className={styles.image} />
-        ) : null}
-        {name === "Neo Geo" ? (
-          <Neogeo fill="white" className={styles.image} />
-        ) : null}
-        {name === "Commodore / Amiga" ? (
-          <Commodore fill="white" className={styles.image} />
-        ) : null}
-        {name === "Atari" ? (
-          <Atari fill="white" className={styles.image} />
-        ) : null}
-        {name === "3DO" ? <Do fill="white" className={styles.image} /> : null}
-        {name === "PC" ? (
-          <Windows fill="white" className={styles.image} />
-        ) : null}
-        {name === "PlayStation" ? (
-          <PS fill="white" className={styles.image} />
-        ) : null}
-        {name === "Xbox" ? (
-          <Xbox fill="white" className={styles.image} />
-        ) : null}
-        {name === "Apple Macintosh" || name === "iOS" ? (
-          <Ios fill="white" className={styles.image} />
-        ) : null}
-        {name === "Nintendo" ? (
-          <Nintendo fill="white" className={styles.image} />
-        ) : null}
-        {name === "Android" ? (
-          <Android fill="white" className={styles.image} />
-        ) : null}
-        {name === "Linux" ? (
-          <Linux fill="white" className={styles.image} />
-        ) : null}
-      </span>
-      <span className={styles.item_title}>{name}</span>
+    <li onClick={onHandleClick}>
+      <Link to="/" className={styles.item}>
+        <span className={styles.item_img}>
+          {name === "Web" ? (
+            <Web fill="white" className={styles.image} />
+          ) : null}
+          {name === "SEGA" ? (
+            <Sega fill="white" className={styles.image} />
+          ) : null}
+          {name === "Neo Geo" ? (
+            <Neogeo fill="white" className={styles.image} />
+          ) : null}
+          {name === "Commodore / Amiga" ? (
+            <Commodore fill="white" className={styles.image} />
+          ) : null}
+          {name === "Atari" ? (
+            <Atari fill="white" className={styles.image} />
+          ) : null}
+          {name === "3DO" ? <Do fill="white" className={styles.image} /> : null}
+          {name === "PC" ? (
+            <Windows fill="white" className={styles.image} />
+          ) : null}
+          {name === "PlayStation" ? (
+            <PS fill="white" className={styles.image} />
+          ) : null}
+          {name === "Xbox" ? (
+            <Xbox fill="white" className={styles.image} />
+          ) : null}
+          {name === "Apple Macintosh" || name === "iOS" ? (
+            <Ios fill="white" className={styles.image} />
+          ) : null}
+          {name === "Nintendo" ? (
+            <Nintendo fill="white" className={styles.image} />
+          ) : null}
+          {name === "Android" ? (
+            <Android fill="white" className={styles.image} />
+          ) : null}
+          {name === "Linux" ? (
+            <Linux fill="white" className={styles.image} />
+          ) : null}
+        </span>
+        <span className={styles.item_title}>{name}</span>
+      </Link>
     </li>
   );
 };

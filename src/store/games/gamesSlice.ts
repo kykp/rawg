@@ -6,8 +6,10 @@ import {
   fetchMoreGamesByPlatform,
   fetchGamesBySearch,
   fetchMoreGamesBySearch,
+  fetchMoreGamesSortedByDateRelease,
+  fetchGamesSortingByDateRelease,
 } from "./asyncActions";
-
+import { sortingArrayByDate } from "../../helper/sortingArrayByDate";
 export type Game = {
   id: number;
   slug: string;
@@ -37,6 +39,12 @@ export type Filter = {
   slug: string;
 };
 
+export enum sortingDesc {
+  true = "true",
+  false = "false",
+  notActive = "notActive",
+}
+
 type GamesState = {
   games: Game[];
   loading: boolean;
@@ -44,8 +52,8 @@ type GamesState = {
   filter: Filter;
   search: string;
   searchCounter: number | null;
-  sortingDate: boolean;
-  sortingRating: boolean;
+  sortingDateDesc: sortingDesc;
+  sortingRatingDesc: sortingDesc;
 };
 
 const initialState: GamesState = {
@@ -55,8 +63,8 @@ const initialState: GamesState = {
   error: "",
   search: "",
   searchCounter: null,
-  sortingDate: false,
-  sortingRating: false,
+  sortingDateDesc: sortingDesc.notActive,
+  sortingRatingDesc: sortingDesc.notActive,
 };
 
 export const gamesSlice = createSlice({
@@ -79,14 +87,17 @@ export const gamesSlice = createSlice({
     setSearchCounter: (state, action: PayloadAction<{ counter: number }>) => {
       state.searchCounter = action.payload.counter;
     },
-    switchDateSort: (state, action: PayloadAction<{ direction: boolean }>) => {
-      state.sortingDate = action.payload.direction;
+    switchDateSort: (
+      state,
+      action: PayloadAction<{ direction: sortingDesc }>
+    ) => {
+      state.sortingDateDesc = action.payload.direction;
     },
     switchRatingSort: (
       state,
-      action: PayloadAction<{ direction: boolean }>
+      action: PayloadAction<{ direction: sortingDesc }>
     ) => {
-      state.sortingRating = action.payload.direction;
+      state.sortingRatingDesc = action.payload.direction;
     },
   },
   extraReducers: (builder) => {
@@ -111,6 +122,37 @@ export const gamesSlice = createSlice({
       .addCase(fetchMoreGames.rejected, (state) => {
         state.error = "Warning";
       })
+      .addCase(fetchGamesSortingByDateRelease.fulfilled, (state, action) => {
+        state.sortingDateDesc === sortingDesc.true
+          ? (state.games = sortingArrayByDate(action.payload, true))
+          : (state.games = sortingArrayByDate(action.payload, false));
+        state.loading = false;
+      })
+      .addCase(fetchGamesSortingByDateRelease.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchGamesSortingByDateRelease.rejected, (state) => {
+        state.error = "Warning";
+      })
+      .addCase(fetchMoreGamesSortedByDateRelease.fulfilled, (state, action) => {
+        state.sortingDateDesc === sortingDesc.true
+          ? (state.games = [
+              ...state.games,
+              ...sortingArrayByDate(action.payload, true),
+            ])
+          : (state.games = [
+              ...state.games,
+              ...sortingArrayByDate(action.payload, false),
+            ]);
+        state.loading = false;
+      })
+      .addCase(fetchMoreGamesSortedByDateRelease.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMoreGamesSortedByDateRelease.rejected, (state) => {
+        state.error = "Warning";
+      })
+
       .addCase(fetchMoreGamesByPlatform.fulfilled, (state, action) => {
         state.games = [...state.games, ...action.payload];
         state.loading = false;
