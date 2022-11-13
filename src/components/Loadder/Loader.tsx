@@ -1,12 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import styles from "./loader.module.scss";
 import { useAppSelector, useAppDispatch } from "../../helper/hook";
-import {
-  fetchMoreGames,
-  // fetchMoreGamesByPlatform,
-  // fetchMoreGamesBySearch,
-  // fetchMoreGamesSortedByDateRelease,
-} from "../../store/games/asyncActions";
+import { fetchMoreGames } from "../../store/games/asyncActions";
 import {
   selectFilters,
   selectSearch,
@@ -14,16 +9,20 @@ import {
   selectError,
   selectSortDirectionByDate,
   selectSortDirectinByRating,
+  selectResearchResults,
+  selectGamesByFilter,
 } from "../../store/games/selectors";
 import { ThreeDots } from "react-loader-spinner";
 import { sortingDesc } from "../../store/games/gamesSlice";
 
 export const Loader = () => {
   const dispatch = useAppDispatch();
+  const data = useAppSelector(selectGamesByFilter);
   const loading = useAppSelector(selectLoading);
   const error = useAppSelector(selectError);
   const filter = useAppSelector(selectFilters);
   const search = useAppSelector(selectSearch);
+  const searchCounter = useAppSelector(selectResearchResults);
   const [page, setPage] = useState(2);
 
   const isSortingDecByDate: sortingDesc = useAppSelector(
@@ -56,6 +55,7 @@ export const Loader = () => {
                 ordering:
                   isSortingDecByDate === "notActive" ? "rating" : "released",
                 page,
+                search,
               })
             );
           }
@@ -72,6 +72,7 @@ export const Loader = () => {
       page,
       isSortingDecByDate,
       isSortingDecByRating,
+      search,
     ]
   );
 
@@ -87,54 +88,21 @@ export const Loader = () => {
 
   return (
     <>
-      {!loading ? (
-        <div ref={lastCardElementRef} className={styles.loader}>
-          <ThreeDots
-            height="80"
-            width="80"
-            radius="9"
-            color="#4fa94d"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            visible={true}
-          />
-        </div>
-      ) : (
-        <div>Hello there</div>
-      )}
+      {searchCounter !== 0 && data?.length !== searchCounter
+        ? !loading && (
+            <div ref={lastCardElementRef} className={styles.loader}>
+              <ThreeDots
+                height="80"
+                width="80"
+                radius="9"
+                color="#4fa94d"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                visible={true}
+              />
+            </div>
+          )
+        : null}
     </>
   );
 };
-
-// if (
-//   filter.slug === "" &&
-//   search === "" &&
-//   isSortingDecByDate === "notActive" &&
-//   isSortingDecByRating === "notActive"
-// ) {
-//   dispatch(fetchMoreGames({ page }));
-// }
-
-// if (isSortingDecByDate === "true") {
-//   dispatch(
-//     fetchMoreGamesSortedByDateRelease({
-//       page,
-//       sortDirectionDec: true,
-//     })
-//   );
-// }
-// if (isSortingDecByDate === "false") {
-//   dispatch(
-//     fetchMoreGamesSortedByDateRelease({
-//       page,
-//       sortDirectionDec: false,
-//     })
-//   );
-// }
-// if (filter.id !== null) {
-//   dispatch(fetchMoreGamesByPlatform({ page, filter: filter.id }));
-// }
-
-// if (search !== "") {
-//   dispatch(fetchMoreGamesBySearch({ page, search }));
-// }

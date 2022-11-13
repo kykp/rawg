@@ -22,6 +22,7 @@ export const fetchGames = createAsyncThunk<
     isSortDirectionDec: boolean;
     ordering: string;
     page: number;
+    search: string;
   },
   { rejectValue: string }
 >(
@@ -34,8 +35,9 @@ export const fetchGames = createAsyncThunk<
       isSortDirectionDec,
       ordering,
       page,
+      search,
     },
-    { rejectWithValue }
+    { rejectWithValue, dispatch }
   ) => {
     console.log("fetchGames");
     const URL = generateNewUrl(
@@ -45,7 +47,8 @@ export const fetchGames = createAsyncThunk<
       platformId,
       isSortDirectionDec,
       ordering,
-      page
+      page,
+      search
     );
 
     const response = await fetch(URL, parametrsObject);
@@ -54,6 +57,7 @@ export const fetchGames = createAsyncThunk<
       return rejectWithValue(`server error`);
     }
     const data = await response.json();
+    dispatch(setSearchCounter({ counter: data.count }));
     return data.results;
   }
 );
@@ -67,6 +71,7 @@ export const fetchMoreGames = createAsyncThunk<
     isSortDirectionDec: boolean;
     ordering: string;
     page: number;
+    search: string;
   },
   { rejectValue: string }
 >(
@@ -79,6 +84,7 @@ export const fetchMoreGames = createAsyncThunk<
       isSortDirectionDec,
       ordering,
       page,
+      search,
     },
     { rejectWithValue }
   ) => {
@@ -90,7 +96,8 @@ export const fetchMoreGames = createAsyncThunk<
       platformId,
       isSortDirectionDec,
       ordering,
-      page
+      page,
+      search
     );
 
     const response = await fetch(URL, parametrsObject);
@@ -98,6 +105,7 @@ export const fetchMoreGames = createAsyncThunk<
     if (!response.ok) {
       return rejectWithValue(`server error`);
     }
+
     const data = await response.json();
     return data.results;
   }

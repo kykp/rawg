@@ -1,9 +1,23 @@
+@import "../../index.module.scss";
+
 .gamesGallery {
     display: grid;  
-    grid-template-columns: repeat(auto-fill,385px);
-    grid-auto-rows: fit-content;
+    grid-template-columns: repeat(auto-fill,385px); 
     gap: 25px;
     justify-content: center; 
     width: 100%;
     margin-top: 30px;
+}
+
+@media screen and (max-width: $mid-size-primary){
+    .gamesGallery {
+        grid-template-columns: repeat(auto-fill,300px); 
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: $min-size-primary){
+    .gamesGallery {
+        grid-template-columns: repeat(auto-fill,200px);  
+    }
 }

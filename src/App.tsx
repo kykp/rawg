@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-
-import { Header } from "./components/Header/Header.tsx";
+import { Routes, Route } from "react-router-dom";
 import { MainContent } from "./components/MainContent/MainContent.tsx";
 import { Catalog } from "./pages/Catalog/Catalog.tsx";
 import { NotFound } from "./pages/NotFound/NotFound";
@@ -27,11 +25,14 @@ function App() {
         isSortDirectionDec: true,
         ordering: "",
         page: 1,
+        search: "",
       })
     );
-    dispatch(fetchPlatforms());
   }, [dispatch, platforms.id]);
 
+  useEffect(() => {
+    dispatch(fetchPlatforms());
+  }, [dispatch]);
   return (
     <>
       <Routes>

@@ -23,7 +23,7 @@ export const GameCard = ({
           <CardImage image={background_image} name={name} />
         </div>
       </Link>
-      <div className={styles.card__footer}>
+      <div className={styles.card__body}>
         <div className={styles.platforms}>
           <ul className={styles.platforms_items}>
             {parent_platforms?.map((el) => (
@@ -39,17 +39,11 @@ export const GameCard = ({
         <div className={styles.description}>
           <ul className={styles.description__items}>
             <li className={styles.description__item}>
-              <div>
-                <p>release date:</p>
-              </div>
-              <div>
-                <p>{released}</p>
-              </div>
+              <p>release date:</p>
+              <p>{released}</p>
             </li>
             <li className={styles.description__item}>
-              <div>
-                <p>genres:</p>
-              </div>
+              <p>genres:</p>
               <div className={styles.description__genres}>
                 {genres?.map((el) => (
                   <CardGenres key={el.id} {...el} />
@@ -57,9 +51,7 @@ export const GameCard = ({
               </div>
             </li>
             <li className={styles.description__item}>
-              <div>
-                <p>rating:</p>
-              </div>
+              <p>rating:</p>
               <div className={styles.description__genres}>{rating}</div>
             </li>
           </ul>

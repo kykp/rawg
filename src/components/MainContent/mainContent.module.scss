@@ -7,3 +7,18 @@
     width: 100%;
 }
 
+
+@media screen and (max-width: $mid-size-primary){
+    .wrapper {
+        width: calc(100% - 220px);
+        align-items: center;
+    }
+}
+
+
+
+@media screen and (max-width: $min-size-primary){
+    .wrapper {
+        margin: 0 auto; 
+    }
+}

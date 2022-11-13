@@ -61,16 +61,3 @@ export const Slider = ({ children, width }: Screens) => {
     </div>
   );
 };
-
-/* <img
-            src="https://media.rawg.io/media/screenshots/a7c/a7c43871a54bed6573a6a429451564ef.jpg"
-            alt=""
-          />
-          <img
-            src="https://media.rawg.io/media/screenshots/cf4/cf4367daf6a1e33684bf19adb02d16d6.jpg"
-            alt=""
-          />
-          <img
-            src="https://media.rawg.io/media/screenshots/f95/f9518b1d99210c0cae21fc09e95b4e31.jpg"
-            alt=""
-          /> */

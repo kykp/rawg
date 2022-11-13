@@ -1,16 +1,20 @@
 import React from "react";
-
+import { NotFound } from "../NotFound/NotFound";
 import styles from "./gamesGallery.module.scss";
 import { useAppSelector } from "../../helper/hook";
 import { GameCard } from "../GameCard/GameCard";
 import { CardSceleton } from "../CardSceleton/CardSceleton";
-import { selectGamesByFilter } from "../../store/games/selectors";
+import {
+  selectGamesByFilter,
+  selectResearchResults,
+} from "../../store/games/selectors";
 
 const plugsSkeletonNumbers = 10;
 
 export const GamesGallery = () => {
   const data = useAppSelector(selectGamesByFilter);
-  console.log(data);
+  const searchCounter = useAppSelector(selectResearchResults);
+  if (searchCounter === 0) return <NotFound />;
   return (
     <div className={styles.gamesGallery}>
       {data?.length

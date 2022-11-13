@@ -17,101 +17,35 @@ import { ReactComponent as Web } from "../../assets/images/leftMenu/web.svg";
 
 import { ParentPlatforms } from "../../store/games/gamesSlice";
 
+const arrayIcons = [
+  { id: "PC", data: Windows },
+  { id: "Xbox", data: Xbox },
+  { id: "PlayStation", data: PS },
+  { id: "Nintendo", data: Nintendo },
+  { id: "Apple Macintosh", data: Ios },
+  { id: "Android", data: Android },
+  { id: "Linux", data: Linux },
+  { id: "3DO", data: Do },
+  { id: "Atari", data: Atari },
+  { id: "Commodore / Amiga", data: Commodore },
+  { id: "Neo Geo", data: Neogeo },
+  { id: "SEGA", data: Sega },
+  { id: "Web", data: Web },
+];
+
 export const CardsPlatfotmIcons = ({ platform }: ParentPlatforms) => {
   return (
     <>
       <li>
-        {platform.name === "3DO" ? (
-          <Do
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "Atari" ? (
-          <Atari
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "Commodore / Amiga" ? (
-          <Commodore
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "Neo Geo" ? (
-          <Neogeo
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "SEGA" ? (
-          <Sega
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "Web" ? (
-          <Web
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "PC" ? (
-          <Windows
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "PlayStation" ? (
-          <PS
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "Xbox" ? (
-          <Xbox
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "Apple Macintosh" ? (
-          <Ios
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "Nintendo" ? (
-          <Nintendo
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "Android" ? (
-          <Android
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
-        {platform.name === "Linux" ? (
-          <Linux
-            fill="white"
-            className={styles.platforms_image}
-            title={platform.name}
-          />
-        ) : null}
+        {arrayIcons.map((el) =>
+          el.id === platform.name ? (
+            <el.data
+              fill="white"
+              className={styles.platforms_image}
+              title={platform.name}
+            />
+          ) : null
+        )}
       </li>
     </>
   );

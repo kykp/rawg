@@ -5,8 +5,12 @@ export const generateNewUrl = (
   platformId: number | null,
   isSortDirectionDec: boolean,
   ordering: string,
-  page: number
+  page: number,
+  search: string
 ) => {
+  if (search !== "") {
+    currentUrl += `&search=${search}`;
+  }
   if (page) {
     currentUrl += `&page=${page}`;
   }

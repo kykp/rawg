@@ -4,9 +4,11 @@
     display: flex;  
     gap: 40px; 
     width: 80%; 
+    margin: 0 auto;
+    justify-content: center;
     &__button {
         display: flex;  
-        align-items: center;
+        align-items: center; 
         justify-content: center;
         gap: 20px; 
         width: 250px;
@@ -44,9 +46,7 @@
         fill: $tertiary-text-color;
         cursor: pointer;
     }
-
 }
-
 .arrow {
     color: $tertiary-text-color;
     &:hover {
@@ -54,3 +54,20 @@
         cursor: pointer;
     }
 }
+ 
+@media screen and (max-width: $mid-size-primary){
+  .filters {
+    flex-direction: column;
+    align-items:center;
+    gap:5px;
+  }
+}
+
+@media screen and (max-width: $min-size-primary){
+    .filters {
+      width: 200px;
+    }
+    .filters__button {
+        max-width: 200px;
+    }
+  }

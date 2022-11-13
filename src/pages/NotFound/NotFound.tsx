@@ -7,7 +7,6 @@ export const NotFound = () => {
       <h2 className={styles.noresults__title}>
         К сожалению по вашему запросу ничего не найдено.
       </h2>
-      <p>Вернуться на главную</p>
     </div>
   );
 };

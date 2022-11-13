@@ -17,6 +17,11 @@
     }
     &_title {
         transition: color 0.3s ease-in-out;
+        @media only screen and (max-width: $min-size-primary) {
+            display: none;
+            
+           }
+        
     }
     &:hover {
         cursor: pointer; 
@@ -29,6 +34,11 @@
         cursor: pointer; 
         color: $secondary-text-color;
     }
+
+    @media only screen and (max-width: $min-size-primary) {
+        font-size: 10px;
+        
+       }
 }
 .image { 
     width: 100%;  

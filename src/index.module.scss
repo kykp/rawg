@@ -9,6 +9,8 @@ $ff-primary: 'Poppins', sans-serif;
 $fs-lm-main: 30px;
 $fs-main: 16px;
 $max-size-primary: 1920px;
+$mid-size-primary: 1100px;
+$min-size-primary: 600px;
  
 body {
     font-family: $ff-primary;
@@ -36,15 +38,28 @@ ul, li, p, span {
     padding: 0; 
     margin: 0;
     list-style-type: none;
+    font-size: inherit;
 }
   
 a {
     outline: none;
     color: $general-text-color; 
     text-decoration: none;
+    font-size: inherit;
   }
   
 .page {
     max-width: $max-size-primary;
     margin: 0 auto;  
+}
+@media screen and (max-width: $mid-size-primary){
+    .page {
+        max-width: $mid-size-primary;
+    }
+}
+
+@media screen and (max-width: $min-size-primary){
+    .page {
+        max-width: $min-size-primary; 
+    } 
 }
