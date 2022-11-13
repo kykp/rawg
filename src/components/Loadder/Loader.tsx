@@ -3,9 +3,9 @@ import styles from "./loader.module.scss";
 import { useAppSelector, useAppDispatch } from "../../helper/hook";
 import {
   fetchMoreGames,
-  fetchMoreGamesByPlatform,
-  fetchMoreGamesBySearch,
-  fetchMoreGamesSortedByDateRelease,
+  // fetchMoreGamesByPlatform,
+  // fetchMoreGamesBySearch,
+  // fetchMoreGamesSortedByDateRelease,
 } from "../../store/games/asyncActions";
 import {
   selectFilters,
@@ -16,6 +16,7 @@ import {
   selectSortDirectinByRating,
 } from "../../store/games/selectors";
 import { ThreeDots } from "react-loader-spinner";
+import { sortingDesc } from "../../store/games/gamesSlice";
 
 export const Loader = () => {
   const dispatch = useAppDispatch();
@@ -23,10 +24,12 @@ export const Loader = () => {
   const error = useAppSelector(selectError);
   const filter = useAppSelector(selectFilters);
   const search = useAppSelector(selectSearch);
-  const isSortingDecByDate = useAppSelector(selectSortDirectionByDate);
-  const isSortingDecByRating = useAppSelector(selectSortDirectinByRating);
-
   const [page, setPage] = useState(2);
+
+  const isSortingDecByDate: sortingDesc = useAppSelector(
+    selectSortDirectionByDate
+  );
+  const isSortingDecByRating = useAppSelector(selectSortDirectinByRating);
 
   let observer = useRef<IntersectionObserver | null>(null);
 
@@ -38,51 +41,37 @@ export const Loader = () => {
       observer.current = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting && !error) {
-            setPage((prevPage) => prevPage + 1);
-            if (
-              filter.id === null &&
-              search === "" &&
-              isSortingDecByDate === "notActive"
-            ) {
-              dispatch(fetchMoreGames({ page }));
-            }
-            if (isSortingDecByDate === "true") {
-              dispatch(
-                fetchMoreGamesSortedByDateRelease({
-                  page,
-                  sortDirectionDec: true,
-                })
-              );
-            }
-            if (isSortingDecByDate === "false") {
-              dispatch(
-                fetchMoreGamesSortedByDateRelease({
-                  page,
-                  sortDirectionDec: false,
-                })
-              );
-            }
-            if (filter.id !== null) {
-              dispatch(fetchMoreGamesByPlatform({ page, filter: filter.id }));
-            }
+            setPage((currentPage) => currentPage + 1);
 
-            // if (search !== "") {
-            //   dispatch(fetchMoreGamesBySearch({ page, search }));
-            // }
+            dispatch(
+              fetchMoreGames({
+                platformId: filter.id,
+                isDateSort: true,
+                isRatingSort: false,
+                isSortDirectionDec:
+                  isSortingDecByDate === "true" ? true : false,
+                ordering: "released",
+                page: page,
+              })
+            );
           }
         },
         { threshold: 1 }
       );
       if (node) observer.current.observe(node);
     },
-    [page, dispatch, error, loading, filter.id, search, isSortingDecByDate]
+    [error, loading, dispatch, filter, page, isSortingDecByDate]
   );
 
   useEffect(() => {
-    if (filter.id !== null) {
+    setPage(2);
+  }, [isSortingDecByDate]);
+
+  useEffect(() => {
+    if (filter.slug !== "") {
       setPage(2);
     }
-  }, [filter]);
+  }, [filter, isSortingDecByDate]);
 
   return (
     <>
@@ -104,3 +93,36 @@ export const Loader = () => {
     </>
   );
 };
+
+// if (
+//   filter.slug === "" &&
+//   search === "" &&
+//   isSortingDecByDate === "notActive" &&
+//   isSortingDecByRating === "notActive"
+// ) {
+//   dispatch(fetchMoreGames({ page }));
+// }
+
+// if (isSortingDecByDate === "true") {
+//   dispatch(
+//     fetchMoreGamesSortedByDateRelease({
+//       page,
+//       sortDirectionDec: true,
+//     })
+//   );
+// }
+// if (isSortingDecByDate === "false") {
+//   dispatch(
+//     fetchMoreGamesSortedByDateRelease({
+//       page,
+//       sortDirectionDec: false,
+//     })
+//   );
+// }
+// if (filter.id !== null) {
+//   dispatch(fetchMoreGamesByPlatform({ page, filter: filter.id }));
+// }
+
+// if (search !== "") {
+//   dispatch(fetchMoreGamesBySearch({ page, search }));
+// }

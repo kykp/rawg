@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./header.module.scss";
 import { useAppDispatch } from "../../helper/hook";
-import { fetchGamesBySearch } from "../../store/games/asyncActions";
+// import { fetchGamesBySearch } from "../../store/games/asyncActions";
 import { addSearch } from "../../store/games/gamesSlice";
 
 export const Input = () => {
@@ -14,7 +14,7 @@ export const Input = () => {
 
   const onHandleClick = () => {
     dispatch(addSearch({ search }));
-    dispatch(fetchGamesBySearch({ search }));
+    // dispatch(fetchGamesBySearch({ search }));
     setSearch("");
   };
 

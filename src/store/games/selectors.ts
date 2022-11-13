@@ -1,4 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { sortingArrayByDate } from "../../helper/sortingArrayByDate";
+import { sortingArrayByRating } from "../../helper/sortingArrayByRating";
 import { RootState } from "../index";
 import { Game } from "./gamesSlice";
 
@@ -25,11 +27,11 @@ export const selectLoading = createSelector(
 );
 export const selectSortDirectionByDate = createSelector(
   getSortDirectionByDate,
-  (games) => games.sortingDateDesc
+  (games) => games.sortingDateDec
 );
 export const selectSortDirectinByRating = createSelector(
   getSortDirectionByRating,
-  (games) => games.sortingRatingDesc
+  (games) => games.sortingRatingDec
 );
 export const selectSearch = createSelector(getSearch, (games) => games.search);
 export const selectError = createSelector(getError, (game) => game.error);
@@ -47,6 +49,23 @@ export const selectGamesByFilter = createSelector(
     selectSortDirectinByRating,
   ],
   (allGames, activeFilter, sortDirectionByDate, sortDirectionByRating) => {
+    console.log("sortDirectionByDate", sortDirectionByDate);
+    if (
+      sortDirectionByDate === "notActive" &&
+      sortDirectionByRating === "notActive"
+    )
+      return allGames;
+
+    if (sortDirectionByDate === "true" || sortDirectionByDate === "false") {
+      const sortDirection = sortDirectionByDate === "true" ? true : false;
+      return sortingArrayByDate(allGames, sortDirection);
+    }
+
+    if (sortDirectionByRating === "true" || sortDirectionByRating === "false") {
+      const sortDirection = sortDirectionByRating === "true" ? true : false;
+      return sortingArrayByRating(allGames, sortDirection);
+    }
+
     // const arraySortedByDate = [...allGames].sort((a, b) => {
     //   const objA = new Date(a.released);
     //   const objB = new Date(b.released);
@@ -68,6 +87,6 @@ export const selectGamesByFilter = createSelector(
     //   );
     //   return newArr;
     // }
-    return allGames;
+    // return allGames;
   }
 );

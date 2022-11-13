@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useAppDispatch } from "../../helper/hook";
 import { Link } from "react-router-dom";
 import styles from "./leftMenuItem.module.scss";
@@ -18,14 +18,14 @@ import { ReactComponent as Neogeo } from "../../assets/images/leftMenu/neogeo.sv
 import { ReactComponent as Sega } from "../../assets/images/leftMenu/sega.svg";
 import { ReactComponent as Web } from "../../assets/images/leftMenu/web.svg";
 import { Platform } from "../../store/platforms/platformSlice";
-import { fetchGamesByPlatform } from "../../store/games/asyncActions";
+// import { fetchGamesByPlatform } from "../../store/games/asyncActions";
 
 export const LeftMenuItem = ({ id, name, slug }: Platform) => {
   const dispatch = useAppDispatch();
 
   const onHandleClick = () => {
     dispatch(addFilter({ id, slug }));
-    dispatch(fetchGamesByPlatform({ filter: id }));
+    // dispatch(fetchGamesByPlatform({ filter: id }));
   };
 
   return (

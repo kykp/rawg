@@ -9,39 +9,28 @@ import { Layout } from "./components/Layout/Layout";
 
 import { useAppDispatch, useAppSelector } from "./helper/hook";
 import { fetchPlatforms } from "./store/platforms/asyncActions";
-import {
-  fetchGames,
-  fetchGamesSortingByDateRelease,
-} from "./store/games/asyncActions";
-import {
-  selectSortDirectionByDate,
-  selectSortDirectinByRating,
-} from "./store/games/selectors";
+import { fetchGames } from "./store/games/asyncActions";
+
 import "./index.module.scss";
+import { selectFilters } from "./store/games/selectors";
 
 function App() {
   const dispatch = useAppDispatch();
-
-  const isSortingDecByDate = useAppSelector(selectSortDirectionByDate);
-  const isSortingDecByRating = useAppSelector(selectSortDirectinByRating);
+  const platforms = useAppSelector(selectFilters);
 
   useEffect(() => {
-    isSortingDecByDate !== "notActive"
-      ? isSortingDecByDate === "true"
-        ? dispatch(
-            fetchGamesSortingByDateRelease({ sortDirectionByDateOnDec: true })
-          )
-        : dispatch(
-            fetchGamesSortingByDateRelease({ sortDirectionByDateOnDec: false })
-          )
-      : dispatch(fetchGames());
-
-    // isSortingDecByRating === "true"
-    //   ? dispatch(fetchGames({ sortDirectionByDateOnDec: true }))
-    //   : dispatch(fetchGames({ sortDirectionByDateOnDec: false }));
-
+    dispatch(
+      fetchGames({
+        platformId: platforms.id,
+        isDateSort: false,
+        isRatingSort: false,
+        isSortDirectionDec: true,
+        ordering: "",
+        page: 1,
+      })
+    );
     dispatch(fetchPlatforms());
-  }, [dispatch, isSortingDecByDate, isSortingDecByRating]);
+  }, [dispatch, platforms.id]);
 
   return (
     <>

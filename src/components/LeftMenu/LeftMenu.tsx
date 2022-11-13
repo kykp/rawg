@@ -5,10 +5,11 @@ import { LeftMenuItem } from "../LeftMenuItem/LeftMenuItem";
 import { LeftMenuItemSkeleton } from "../LeftMenuItemSkeleton/LeftMenuItemSkeleton";
 import { Link } from "react-router-dom";
 import styles from "./leftMenu.module.scss";
+import { selectAllPlatforms } from "../../store/platforms/selectors";
 
 const plugsNumbers = 8;
 export const LeftMenu = () => {
-  const data = useAppSelector((state) => state.platforms.platforms);
+  const data = useAppSelector(selectAllPlatforms);
 
   return (
     <div className={styles.leftMenu}>
