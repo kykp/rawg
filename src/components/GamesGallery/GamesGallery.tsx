@@ -10,7 +10,6 @@ const plugsSkeletonNumbers = 10;
 
 export const GamesGallery = () => {
   const data = useAppSelector(selectGamesByFilter);
-
   console.log(data);
   return (
     <div className={styles.gamesGallery}>

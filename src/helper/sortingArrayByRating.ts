@@ -4,8 +4,7 @@ export const sortingArrayByRating = (
   array: Game[],
   sortingDateDesc: boolean
 ) => {
-  const newArray = array.filter((el) => el.rating !== 0);
-  const arraySortedByRating = [...newArray].sort((a, b) => {
+  const arraySortedByRating = [...array].sort((a, b) => {
     const objA = a.rating;
     const objB = b.rating;
     return sortingDateDesc ? objB - objA : objA - objB;

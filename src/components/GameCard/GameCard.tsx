@@ -8,7 +8,6 @@ import { CardGenres } from "../CardGenres/CardGenres";
 import { CardImage } from "../CardImage/CardImage";
 
 export const GameCard = ({
-  id,
   slug,
   name,
   released,

@@ -2,7 +2,6 @@ import { createSelector } from "@reduxjs/toolkit";
 import { sortingArrayByDate } from "../../helper/sortingArrayByDate";
 import { sortingArrayByRating } from "../../helper/sortingArrayByRating";
 import { RootState } from "../index";
-import { Game } from "./gamesSlice";
 
 export const getAllGames = (store: RootState) => store.games;
 export const getFilters = (store: RootState) => store.games;
@@ -42,14 +41,8 @@ export const selectResearchResults = createSelector(
 );
 
 export const selectGamesByFilter = createSelector(
-  [
-    selectAllGames,
-    selectFilters,
-    selectSortDirectionByDate,
-    selectSortDirectinByRating,
-  ],
-  (allGames, activeFilter, sortDirectionByDate, sortDirectionByRating) => {
-    console.log("sortDirectionByDate", sortDirectionByDate);
+  [selectAllGames, selectSortDirectionByDate, selectSortDirectinByRating],
+  (allGames, sortDirectionByDate, sortDirectionByRating) => {
     if (
       sortDirectionByDate === "notActive" &&
       sortDirectionByRating === "notActive"
@@ -65,28 +58,5 @@ export const selectGamesByFilter = createSelector(
       const sortDirection = sortDirectionByRating === "true" ? true : false;
       return sortingArrayByRating(allGames, sortDirection);
     }
-
-    // const arraySortedByDate = [...allGames].sort((a, b) => {
-    //   const objA = new Date(a.released);
-    //   const objB = new Date(b.released);
-    //   return sortDirectionByDate
-    //     ? objB.getTime() - objA.getTime()
-    //     : objA.getTime() - objB.getTime();
-    // });
-    // if (activeFilter.slug === "") {
-    //   return allGames;
-    // }
-    // if (activeFilter.slug !== "") {
-    //   const newArr: Game[] = [];
-    //   allGames.forEach((el) =>
-    //     el.parent_platforms.forEach((item) => {
-    //       if (item.platform.slug === activeFilter.slug) {
-    //         newArr.push(el);
-    //       }
-    //     })
-    //   );
-    //   return newArr;
-    // }
-    // return allGames;
   }
 );

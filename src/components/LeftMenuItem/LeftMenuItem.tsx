@@ -18,14 +18,12 @@ import { ReactComponent as Neogeo } from "../../assets/images/leftMenu/neogeo.sv
 import { ReactComponent as Sega } from "../../assets/images/leftMenu/sega.svg";
 import { ReactComponent as Web } from "../../assets/images/leftMenu/web.svg";
 import { Platform } from "../../store/platforms/platformSlice";
-// import { fetchGamesByPlatform } from "../../store/games/asyncActions";
 
 export const LeftMenuItem = ({ id, name, slug }: Platform) => {
   const dispatch = useAppDispatch();
 
   const onHandleClick = () => {
     dispatch(addFilter({ id, slug }));
-    // dispatch(fetchGamesByPlatform({ filter: id }));
   };
 
   return (

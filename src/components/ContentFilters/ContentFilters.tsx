@@ -45,23 +45,23 @@ export const ContentFilters = () => {
     dispatch(switchDateSort({ direction: sortingDesc.notActive }));
   };
 
-  useEffect(() => {
-    dispatch(
-      fetchGames({
-        platformId: filter.id,
-        isDateSort: isSortingDecByDate !== "notActive" ? true : false,
-        isRatingSort: isSortingDecByRating !== "notActive" ? true : false,
-        isSortDirectionDec:
-          isSortingDecByDate === "true" || isSortingDecByRating === "true"
-            ? true
-            : false,
-        ordering: isSortingDecByDate === "notActive" ? "rating" : "released",
-        page: 1,
-      })
-    );
-  }, [dispatch, filter, isSortingDecByDate, isSortingDecByRating]);
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchGames({
+  //       platformId: filter.id,
+  //       isDateSort: isSortingDecByDate !== "notActive" ? true : false,
+  //       isRatingSort: isSortingDecByRating !== "notActive" ? true : false,
+  //       isSortDirectionDec:
+  //         isSortingDecByDate === "true" || isSortingDecByRating === "true"
+  //           ? true
+  //           : false,
+  //       ordering: isSortingDecByDate === "notActive" ? "rating" : "released",
+  //       page: 1,
+  //     })
+  //   );
+  // }, [dispatch, filter, isSortingDecByDate, isSortingDecByRating]);
 
-  console.log("isSortingDecByRating", isSortingDecByRating);
+  console.log("filter slug", filter.slug);
   return (
     <div className={styles.filters}>
       <button className={styles.filters__button}>

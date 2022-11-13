@@ -42,16 +42,20 @@ export const Loader = () => {
         (entries) => {
           if (entries[0].isIntersecting && !error) {
             setPage((currentPage) => currentPage + 1);
-
             dispatch(
               fetchMoreGames({
                 platformId: filter.id,
-                isDateSort: true,
-                isRatingSort: false,
+                isDateSort: isSortingDecByDate !== "notActive" ? true : false,
+                isRatingSort:
+                  isSortingDecByRating !== "notActive" ? true : false,
                 isSortDirectionDec:
-                  isSortingDecByDate === "true" ? true : false,
-                ordering: "released",
-                page: page,
+                  isSortingDecByDate === "true" ||
+                  isSortingDecByRating === "true"
+                    ? true
+                    : false,
+                ordering:
+                  isSortingDecByDate === "notActive" ? "rating" : "released",
+                page,
               })
             );
           }
@@ -60,7 +64,15 @@ export const Loader = () => {
       );
       if (node) observer.current.observe(node);
     },
-    [error, loading, dispatch, filter, page, isSortingDecByDate]
+    [
+      error,
+      loading,
+      dispatch,
+      filter,
+      page,
+      isSortingDecByDate,
+      isSortingDecByRating,
+    ]
   );
 
   useEffect(() => {
