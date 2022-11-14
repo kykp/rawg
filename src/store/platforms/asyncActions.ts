@@ -1,21 +1,15 @@
 import { Platform } from "./platformSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { asyncActionFetcher } from "../../helper/asyncActionFetcher";
 
-const API_URL = "https://api.rawg.io/api/platforms/lists/parents?key=";
-const api_key = process.env.REACT_APP_API_KEY;
+const API_URL = "platforms/lists/parents";
 
 export const fetchPlatforms = createAsyncThunk<
   Platform[],
   void,
   { rejectValue: string }
 >("platforms/fetchPlatforms", async (_, { rejectWithValue }) => {
-  const response = await fetch(`${API_URL}${api_key}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
+  const response = await asyncActionFetcher(`${API_URL}`);
   if (!response.ok) {
     return rejectWithValue(`server error`);
   }

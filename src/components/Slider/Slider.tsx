@@ -3,15 +3,20 @@ import React, { useEffect, useState, Children, cloneElement } from "react";
 import styles from "./slider.module.scss";
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
+import { useWindowSize } from "../../helper/useWindowSize";
 type Screens = {
   children: any;
-  width: number;
 };
 
-export const Slider = ({ children, width }: Screens) => {
+export const Slider = ({ children }: Screens) => {
+  const [windowWidth, windowHeight] = useWindowSize();
   const [pages, setPages] = useState([]);
   const [offset, setOffset] = useState(0);
+  const [width, setWidth] = useState(600);
+
+  useEffect(() => {
+    setWidth(windowWidth / 2);
+  }, [windowWidth]);
 
   const onHandleLeftClick = () => {
     setOffset((currentOffset) => {
@@ -47,7 +52,7 @@ export const Slider = ({ children, width }: Screens) => {
         <FaChevronLeft className={styles.arrow} />
       </span>
 
-      <div className={styles.window}>
+      <div className={styles.window} style={{ width: `${width}px` }}>
         <div
           className={styles.all_items}
           style={{ transform: `translateX(${offset}px)` }}

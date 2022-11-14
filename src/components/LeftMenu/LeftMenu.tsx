@@ -26,28 +26,31 @@ export const LeftMenu = () => {
         search: "",
       })
     );
+    window.scrollTo(0, 0);
   };
   return (
-    <div className={styles.leftMenu}>
-      <div className={styles.leftMenu_sidebar}>
-        <Link to="/">
-          <span
-            className={styles.leftMenu_sidebar_title}
-            onClick={onHandleClick}
-          >
-            Home
-          </span>
-        </Link>
-      </div>
-      <div className={styles.leftMenu_sidebar}>
-        <span className={styles.leftMenu_sidebar_title}>Platforms</span>
-        <ul className={styles.items}>
-          {data.length === 0
-            ? [...Array(plugsNumbers)].map((e, i) => (
-                <LeftMenuItemSkeleton key={i} />
-              ))
-            : data.map((el) => <LeftMenuItem key={el.id} {...el} />)}
-        </ul>
+    <div className={styles.sticky}>
+      <div className={styles.leftMenu}>
+        <div className={styles.leftMenu_sidebar}>
+          <Link to="/">
+            <span
+              className={styles.leftMenu_sidebar_title}
+              onClick={onHandleClick}
+            >
+              Home
+            </span>
+          </Link>
+        </div>
+        <div className={styles.leftMenu_sidebar}>
+          <span className={styles.leftMenu_sidebar_title}>Platforms</span>
+          <ul className={styles.items}>
+            {data.length === 0
+              ? [...Array(plugsNumbers)].map((e, i) => (
+                  <LeftMenuItemSkeleton key={i} />
+                ))
+              : data.map((el) => <LeftMenuItem key={el.id} {...el} />)}
+          </ul>
+        </div>
       </div>
     </div>
   );

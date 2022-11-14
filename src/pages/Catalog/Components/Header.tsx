@@ -30,7 +30,10 @@ export const Header = ({
         </div>
         <div className={styles.descriptions}>
           <h2>About</h2>
-          <span dangerouslySetInnerHTML={{ __html: description }}></span>
+          <span
+            dangerouslySetInnerHTML={{ __html: description }}
+            className={styles.description_text}
+          ></span>
         </div>
       </div>
     </div>

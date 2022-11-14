@@ -50,3 +50,13 @@
         color: black;
     }
 }
+
+@media screen and (max-width: $min-size-primary){
+    .search {
+        font-size:$fs-low-resolution;
+    }
+    .button{
+        font-size: $fs-low-resolution;
+    }
+}
+ 

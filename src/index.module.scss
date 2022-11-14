@@ -6,11 +6,15 @@ $general-text-color: #fff;
 $secondary-text-color: #444;
 $tertiary-text-color: rgb(192, 192, 192);
 $ff-primary: 'Poppins', sans-serif;  
+$fs-bigger-main : 50px;
 $fs-lm-main: 30px;
+$fs-main-title: 25px;
 $fs-main: 16px;
+$fs-low-resolution: 10px;
 $max-size-primary: 1920px;
 $mid-size-primary: 1100px;
 $min-size-primary: 600px;
+$mobile-size-primary: 400px;
  
 body {
     font-family: $ff-primary;

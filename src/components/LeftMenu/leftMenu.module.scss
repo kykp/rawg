@@ -1,6 +1,8 @@
 @import "../../index.module.scss";
 
 .leftMenu {
+    position: sticky; 
+    top: 25px;
     width: 220px; 
     display: flex;
     flex-direction: column;
@@ -21,7 +23,7 @@
         }
 
         @media only screen and (max-width: $min-size-primary) {
-           font-size: 10px;
+           font-size: $fs-low-resolution;
            
           }
     } 
@@ -31,5 +33,11 @@
     flex-direction: column; 
     gap: 10px;
 }
+ 
 
+@media only screen and (max-width: $mobile-size-primary) {
+    .leftMenu {
+        width: 70px;
+    }
+   }
  

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AboutGame, Screenshots } from "./gameSlice";
+import { asyncActionFetcher } from "../../helper/asyncActionFetcher";
 
 const API_URL = "https://api.rawg.io/api";
 const api_key = process.env.REACT_APP_API_KEY;
@@ -9,13 +10,7 @@ export const fetchGameDetails = createAsyncThunk<
   { slug: string },
   { rejectValue: string }
 >("game/fetchGameDetails", async ({ slug }, { rejectWithValue }) => {
-  const response = await fetch(`${API_URL}/games/${slug}?key=${api_key}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
+  const response = await asyncActionFetcher(`games/${slug}`);
   if (!response.ok) {
     return rejectWithValue(`server error`);
   }
@@ -28,15 +23,7 @@ export const fetchGameScreenshots = createAsyncThunk<
   { slug: string },
   { rejectValue: string }
 >("game/fetchGameScreenshots", async ({ slug }, { rejectWithValue }) => {
-  const response = await fetch(
-    `${API_URL}/games/${slug}/screenshots?key=${api_key}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await asyncActionFetcher(`games/${slug}/screenshots`);
   if (!response.ok) {
     return rejectWithValue(`server error`);
   }

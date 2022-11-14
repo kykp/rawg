@@ -43,6 +43,7 @@ export const LeftMenuItem = ({ id, name, slug }: Platform) => {
   const Icon = arrayIcons[name];
   const onHandleClick = () => {
     dispatch(addFilter({ id, slug }));
+    window.scrollTo(0, 0);
   };
 
   if (Icon) {

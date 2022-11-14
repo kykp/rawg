@@ -7,9 +7,10 @@ import {
   selectSortDirectinByRating,
   selectSortDirectionByDate,
 } from "../../store/games/selectors";
-
+import { useNavigate } from "react-router-dom";
 export const Input = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const isSortingDecByDate: sortingDesc = useAppSelector(
     selectSortDirectionByDate
   );
@@ -38,6 +39,7 @@ export const Input = () => {
       })
     );
     setSearch("");
+    navigate("/");
   };
 
   const onHandleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {

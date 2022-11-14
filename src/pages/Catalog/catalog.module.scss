@@ -3,8 +3,9 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 70%;
     padding-bottom: 100px;
+    margin: 0 auto;
 }
 .game {
     width: 80%;
@@ -32,35 +33,15 @@
 .title {
     display: flex;
     justify-content: center;
-    font-size: 50px;
+    font-size: $fs-bigger-main;
 }
 .platforms {
     display: flex;
     justify-content: center;
     gap: 30px; 
 }
-.pictures {
-    margin: 20px auto;
-    max-width: 50%;
-    & img { 
-        opacity: 0.6;
-        width: 100%;
-        border-radius: 25px;
-    }
-}
-.descriptions { 
-    font-weight: 200;  
-    font-size: 12px;
-    word-break: break-all;
-
-    & h2 {
-        font-size: 25px;
-        padding: 0;
-        margin: 0;
-        text-align: center;
-    }
-} 
-.item {  
+ 
+.item {   
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,17 +49,41 @@
 }
 .top {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 30px;
     justify-content: center;
 }
+.pictures {
+    margin: 20px auto; 
+    & img { 
+        opacity: 0.6;
+        width: 100%;
+        border-radius: 25px;
+    }
+}
+.descriptions { 
+    max-width: 100%;
+    font-weight: 200;  
+    font-size: $fs-main;
+    word-break: break-all; 
+    & h2 {
+        font-size: $fs-main-title;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+} 
 
 .about{
-    margin: 0 auto;
+    margin: 20px auto;
     display: flex;  
+    flex-wrap: wrap;
     gap: 40px;
-    max-width: 80%;
+    max-width: 100%;
     font-weight: 200;  
+    font-size: $fs-main;
+    justify-content: center;
     color: $tertiary-text-color;
     &_title {
         font-weight: 400;
@@ -92,8 +97,10 @@
     display: flex;
     flex-direction: column;
     align-items: center; 
+    justify-content: center;
     margin-top: 50px;
     font-weight: 200; 
+    font-size: $fs-main;
     color: $tertiary-text-color;
     &_title {
         font-weight: 400;
@@ -101,8 +108,9 @@
     }  
     &_items{
         display: flex;
+        justify-content: center;
         max-width: 80%;
-        font-size: 10px;
+        font-size: $fs-main;
         flex-wrap: wrap;
         gap:20px; 
     }
@@ -114,13 +122,56 @@
 }
 
 .slider {  
+    width: 100%;
+    margin: 0 auto;
     margin-top: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; 
-
+    justify-content: center;  
     &_title {
         margin-bottom: 25px;
     }
 }
+
+
+@media screen and (max-width: $mid-size-primary){
+    .navigations {
+        font-size: $fs-low-resolution;
+        justify-content: center;
+    }
+    .title {
+        font-size: $fs-main;
+    }
+     .about {
+        
+        word-break: break-all; 
+        flex-wrap: wrap;
+        font-size:  $fs-low-resolution;
+     }
+     .description_text { 
+        font-size: $fs-low-resolution;
+    }
+     .pictures {
+        width: 100%;
+     }
+     .slider {
+        width: 80%;
+     }
+     .tags_items {
+        font-size:  $fs-low-resolution;
+     }
+}
+
+@media screen and (max-width: $min-size-primary){
+   .wrapper {
+    width: 100%;
+   }
+   .navigations {
+   display: none;
+}
+.about{
+    flex-direction: column;
+}
+}
+
