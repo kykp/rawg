@@ -37,26 +37,27 @@ export const ButtonPlatformFilter = () => {
     dispatch(setOrdering({ currentOrder: EOrdering.undefined }));
     dispatch(addSearch({ search: "" }));
   };
-  if (search === "" && filter.slug === "") {
-    return <></>;
-  }
   return (
-    <button className={styles.filters__button}>
-      <div className={styles.block}>
-        <div className={styles.block__subtitle}>
-          {search !== "" && <p>{search.toUpperCase()}</p>}
-          {filter.id && <p>{filter.slug.toUpperCase()}</p>}
-        </div>
-      </div>
-      <div className={styles.pictures}>
-        {filter.slug !== "" || search ? (
-          <Cross
-            fill="white"
-            className={styles.image}
-            onClick={onHandleClearFilter}
-          />
-        ) : null}
-      </div>
-    </button>
+    <>
+      {search !== "" || filter.slug !== "" ? (
+        <button className={styles.filters__button}>
+          <div className={styles.block}>
+            <div className={styles.block__subtitle}>
+              {search !== "" && <p>{search.toUpperCase()}</p>}
+              {filter.id && <p>{filter.slug.toUpperCase()}</p>}
+            </div>
+          </div>
+          <div className={styles.pictures}>
+            {filter.slug !== "" || search ? (
+              <Cross
+                fill="white"
+                className={styles.image}
+                onClick={onHandleClearFilter}
+              />
+            ) : null}
+          </div>
+        </button>
+      ) : null}
+    </>
   );
 };

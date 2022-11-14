@@ -3,17 +3,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { generateNewUrl } from "../../helper/generateNewUrl";
 import { asyncActionFetcherGames } from "../../helper/asyncActionFetcherGames";
 
+type GameItem = {
+  platformId: number | null;
+  isDateSort: boolean;
+  isRatingSort: boolean;
+  isSortDirectionDec: boolean;
+  ordering: string;
+  page: number;
+  search: string;
+};
+
 export const fetchGames = createAsyncThunk<
   Game[],
-  {
-    platformId: number | null;
-    isDateSort: boolean;
-    isRatingSort: boolean;
-    isSortDirectionDec: boolean;
-    ordering: string;
-    page: number;
-    search: string;
-  },
+  GameItem,
   { rejectValue: string }
 >(
   "games/fetchGames",
@@ -50,15 +52,7 @@ export const fetchGames = createAsyncThunk<
 
 export const fetchMoreGames = createAsyncThunk<
   Game[],
-  {
-    platformId: number | null;
-    isDateSort: boolean;
-    isRatingSort: boolean;
-    isSortDirectionDec: boolean;
-    ordering: string;
-    page: number;
-    search: string;
-  },
+  GameItem,
   { rejectValue: string }
 >(
   "games/fetchMoreGames",
