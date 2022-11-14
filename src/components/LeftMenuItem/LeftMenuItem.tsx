@@ -19,42 +19,44 @@ import { ReactComponent as Sega } from "../../assets/images/leftMenu/sega.svg";
 import { ReactComponent as Web } from "../../assets/images/leftMenu/web.svg";
 import { Platform } from "../../store/platforms/platformSlice";
 
-const arrayIcons = [
-  { id: "PC", data: Windows },
-  { id: "Xbox", data: Xbox },
-  { id: "PlayStation", data: PS },
-  { id: "Nintendo", data: Nintendo },
-  { id: "Apple Macintosh", data: Ios },
-  { id: "iOS", data: Ios },
-  { id: "Android", data: Android },
-  { id: "Linux", data: Linux },
-  { id: "3DO", data: Do },
-  { id: "Atari", data: Atari },
-  { id: "Commodore / Amiga", data: Commodore },
-  { id: "Neo Geo", data: Neogeo },
-  { id: "SEGA", data: Sega },
-  { id: "Web", data: Web },
-];
-
+type TIcons = {
+  [index: string]: React.ComponentClass<any>;
+};
+const arrayIcons: TIcons = {
+  PC: Windows,
+  Xbox: Xbox,
+  PlayStation: PS,
+  Nintendo: Nintendo,
+  "Apple Macintosh": Ios,
+  iOS: Ios,
+  Android: Android,
+  Linux: Linux,
+  "3DO": Do,
+  Atari: Atari,
+  "Commodore / Amiga": Commodore,
+  "Neo Geo": Neogeo,
+  SEGA: Sega,
+  Web: Web,
+};
 export const LeftMenuItem = ({ id, name, slug }: Platform) => {
   const dispatch = useAppDispatch();
-
+  const Icon = arrayIcons[name];
   const onHandleClick = () => {
     dispatch(addFilter({ id, slug }));
   };
 
-  return (
-    <li onClick={onHandleClick}>
-      <Link to="/" className={styles.item}>
-        <span className={styles.item_img}>
-          {arrayIcons.map((el) =>
-            el.id === name ? (
-              <el.data fill="white" className={styles.image} title={name} />
-            ) : null
-          )}
-        </span>
-        <span className={styles.item_title}>{name}</span>
-      </Link>
-    </li>
-  );
+  if (Icon) {
+    return (
+      <li onClick={onHandleClick}>
+        <Link to="/" className={styles.item}>
+          <span className={styles.item_img}>
+            <Icon fill="white" className={styles.image} title={name} />
+          </span>
+          <span className={styles.item_title}>{name}</span>
+        </Link>
+      </li>
+    );
+  } else {
+    return <></>;
+  }
 };

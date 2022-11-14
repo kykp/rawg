@@ -1,4 +1,8 @@
-import React from "react";
+import React, {
+  Component,
+  JSXElementConstructor,
+  ReactComponentElement,
+} from "react";
 
 import styles from "./cardsPlatfotmIcons.module.scss";
 import { ReactComponent as Windows } from "../../assets/images/leftMenu/windows.svg";
@@ -17,36 +21,38 @@ import { ReactComponent as Web } from "../../assets/images/leftMenu/web.svg";
 
 import { ParentPlatforms } from "../../store/games/gamesSlice";
 
-const arrayIcons = [
-  { id: "PC", data: Windows },
-  { id: "Xbox", data: Xbox },
-  { id: "PlayStation", data: PS },
-  { id: "Nintendo", data: Nintendo },
-  { id: "Apple Macintosh", data: Ios },
-  { id: "Android", data: Android },
-  { id: "Linux", data: Linux },
-  { id: "3DO", data: Do },
-  { id: "Atari", data: Atari },
-  { id: "Commodore / Amiga", data: Commodore },
-  { id: "Neo Geo", data: Neogeo },
-  { id: "SEGA", data: Sega },
-  { id: "Web", data: Web },
-];
+interface IRoutesMap {
+  [index: string]: React.ComponentClass<any>;
+}
+const arrayIcons: IRoutesMap = {
+  PC: Windows,
+  Xbox: Xbox,
+  PlayStation: PS,
+  Nintendo: Nintendo,
+  "Apple Macintosh": Ios,
+  Android: Android,
+  Linux: Linux,
+  "3DO": Do,
+  Atari: Atari,
+  "Commodore / Amiga": Commodore,
+  "Neo Geo": Neogeo,
+  SEGA: Sega,
+  Web: Web,
+};
 
 export const CardsPlatfotmIcons = ({ platform }: ParentPlatforms) => {
-  return (
-    <>
-      <li>
-        {arrayIcons.map((el) =>
-          el.id === platform.name ? (
-            <el.data
-              fill="white"
-              className={styles.platforms_image}
-              title={platform.name}
-            />
-          ) : null
-        )}
-      </li>
-    </>
-  );
+  const { name } = platform;
+  const Item = arrayIcons[name];
+
+  if (Item) {
+    return (
+      <Item
+        fill="white"
+        className={styles.platforms_image}
+        title={platform.name}
+      />
+    );
+  } else {
+    return <></>;
+  }
 };
