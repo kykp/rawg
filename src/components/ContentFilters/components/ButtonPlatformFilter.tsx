@@ -33,7 +33,6 @@ export const ButtonPlatformFilter = () => {
       <div className={styles.pictures}>
         {filter.slug !== "" ? (
           <Cross
-            width="10px"
             fill="white"
             className={styles.image}
             onClick={onHandleClearFilter}

@@ -39,8 +39,6 @@ export const platformSlice = createSlice({
   },
 });
 
-// export const {} = platformSlice.actions;
-
 export default platformSlice.reducer;
 
 function isError(action: AnyAction) {

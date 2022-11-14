@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../../helper/hook";
+import React from "react";
+import { useAppDispatch } from "../../helper/hook";
 import { Link } from "react-router-dom";
 import styles from "./leftMenuItem.module.scss";
 
-import { addFilter, sortingDesc } from "../../store/games/gamesSlice";
+import { addFilter } from "../../store/games/gamesSlice";
 import { ReactComponent as Windows } from "../../assets/images/leftMenu/windows.svg";
 import { ReactComponent as Xbox } from "../../assets/images/leftMenu/xbox.svg";
 import { ReactComponent as PS } from "../../assets/images/leftMenu/ps.svg";

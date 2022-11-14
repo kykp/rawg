@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../helper/hook";
 import {
   sortingDesc,
@@ -30,7 +30,6 @@ export const ButtonDateFilter = () => {
         onClick={onHandleSortByReleaseDate}
       >
         <span> Sort by Release Date</span>
-
         {isSortingDecByDate === "notActive" ? null : isSortingDecByDate ===
           "true" ? (
           <BsArrowDownSquare />

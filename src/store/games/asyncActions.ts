@@ -39,7 +39,6 @@ export const fetchGames = createAsyncThunk<
     },
     { rejectWithValue, dispatch }
   ) => {
-    console.log("fetchGames");
     const URL = generateNewUrl(
       `${API_URL}/games?key=${api_key}&page_size=${size}&dates=${limitDateFilter}`,
       isDateSort,
@@ -88,7 +87,6 @@ export const fetchMoreGames = createAsyncThunk<
     },
     { rejectWithValue }
   ) => {
-    console.log("fetchMoreGames");
     const URL = generateNewUrl(
       `${API_URL}/games?key=${api_key}&page_size=${size}&dates=${limitDateFilter}`,
       isDateSort,
