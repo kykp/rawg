@@ -7,13 +7,14 @@ import {
   selectSearch,
   selectLoading,
   selectError,
-  selectSortDirectionByDate,
-  selectSortDirectinByRating,
   selectResearchResults,
   selectGamesByFilter,
+  selectSortingByRating,
+  selectSortingByDate,
+  selectSortDirection,
+  selectOrdering,
 } from "../../store/games/selectors";
 import { ThreeDots } from "react-loader-spinner";
-import { sortingDesc } from "../../store/games/gamesSlice";
 
 export const Loader = () => {
   const dispatch = useAppDispatch();
@@ -23,14 +24,11 @@ export const Loader = () => {
   const filter = useAppSelector(selectFilters);
   const search = useAppSelector(selectSearch);
   const searchCounter = useAppSelector(selectResearchResults);
+  const sortByRating = useAppSelector(selectSortingByRating);
+  const sortByDate = useAppSelector(selectSortingByDate);
+  const isSortingDec = useAppSelector(selectSortDirection);
+  const ordering = useAppSelector(selectOrdering);
   const [page, setPage] = useState(2);
-
-  const isSortingDecByDate: sortingDesc = useAppSelector(
-    selectSortDirectionByDate
-  );
-  const isSortingDecByRating: sortingDesc = useAppSelector(
-    selectSortDirectinByRating
-  );
 
   let observer = useRef<IntersectionObserver | null>(null);
 
@@ -43,25 +41,14 @@ export const Loader = () => {
         (entries) => {
           if (entries[0].isIntersecting && !error) {
             setPage((currentPage) => currentPage + 1);
+
             dispatch(
               fetchMoreGames({
                 platformId: filter.id,
-                isDateSort: isSortingDecByDate !== "notActive" ? true : false,
-                isRatingSort:
-                  isSortingDecByRating !== "notActive" ? true : false,
-                isSortDirectionDec:
-                  isSortingDecByDate === "true" ||
-                  isSortingDecByRating === "true"
-                    ? true
-                    : false,
-                ordering:
-                  isSortingDecByDate === "notActive" &&
-                  isSortingDecByRating === "notActive"
-                    ? ""
-                    : isSortingDecByRating === "true" ||
-                      isSortingDecByRating === "false"
-                    ? "rating"
-                    : "released",
+                isDateSort: sortByDate,
+                isRatingSort: sortByRating,
+                isSortDirectionDec: isSortingDec,
+                ordering,
                 page,
                 search,
               })
@@ -78,40 +65,24 @@ export const Loader = () => {
       dispatch,
       filter,
       page,
-      isSortingDecByDate,
-      isSortingDecByRating,
       search,
+      isSortingDec,
+      ordering,
+      sortByDate,
+      sortByRating,
     ]
   );
 
   useEffect(() => {
     setPage(2);
-  }, [isSortingDecByDate, isSortingDecByRating]);
+  }, [isSortingDec]);
 
   useEffect(() => {
     if (filter.slug !== "") {
       setPage(2);
     }
-  }, [filter, isSortingDecByDate]);
+  }, [filter]);
 
-  console.log(
-    filter.id,
-    isSortingDecByDate !== "notActive" ? true : false,
-
-    isSortingDecByRating !== "notActive" ? true : false,
-
-    isSortingDecByDate === "true" || isSortingDecByRating === "true"
-      ? true
-      : false,
-
-    isSortingDecByDate === "notActive" && isSortingDecByRating === "notActive"
-      ? ""
-      : isSortingDecByRating === "true" || isSortingDecByRating === "false"
-      ? "rating"
-      : "released",
-    page,
-    search
-  );
   return (
     <>
       {searchCounter !== 0 && data?.length !== searchCounter

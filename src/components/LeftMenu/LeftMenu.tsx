@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../helper/hook";
 
 import { LeftMenuItem } from "../LeftMenuItem/LeftMenuItem";
@@ -6,15 +6,29 @@ import { LeftMenuItemSkeleton } from "../LeftMenuItemSkeleton/LeftMenuItemSkelet
 import { Link } from "react-router-dom";
 import styles from "./leftMenu.module.scss";
 import { selectAllPlatforms } from "../../store/platforms/selectors";
-import { clearFilter } from "../../store/games/gamesSlice";
 import { fetchGames } from "../../store/games/asyncActions";
+import {
+  selectFilters,
+  selectOrdering,
+  selectSearch,
+  selectSortDirection,
+  selectSortingByDate,
+  selectSortingByRating,
+} from "../../store/games/selectors";
 
 const plugsNumbers = 8;
 export const LeftMenu = () => {
   const data = useAppSelector(selectAllPlatforms);
+  const filter = useAppSelector(selectFilters);
+  const isSortingDec = useAppSelector(selectSortDirection);
+  const search = useAppSelector(selectSearch);
+  const sortByRating = useAppSelector(selectSortingByRating);
+  const sortByDate = useAppSelector(selectSortingByDate);
+  const ordering = useAppSelector(selectOrdering);
+
   const dispatch = useAppDispatch();
+
   const onHandleClick = () => {
-    dispatch(clearFilter());
     dispatch(
       fetchGames({
         platformId: null,
@@ -28,6 +42,25 @@ export const LeftMenu = () => {
     );
     window.scrollTo(0, 0);
   };
+
+  useEffect(() => {
+    if (filter.slug !== "") {
+      dispatch(
+        fetchGames({
+          platformId: filter.id,
+          isDateSort: sortByDate,
+          isRatingSort: sortByRating,
+          isSortDirectionDec: isSortingDec,
+          ordering,
+          page: 1,
+          search,
+        })
+      );
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter]);
+
   return (
     <div className={styles.sticky}>
       <div className={styles.leftMenu}>

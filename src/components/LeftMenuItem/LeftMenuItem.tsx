@@ -1,9 +1,7 @@
 import React from "react";
-import { useAppDispatch } from "../../helper/hook";
 import { Link } from "react-router-dom";
 import styles from "./leftMenuItem.module.scss";
 
-import { addFilter } from "../../store/games/gamesSlice";
 import { ReactComponent as Windows } from "../../assets/images/leftMenu/windows.svg";
 import { ReactComponent as Xbox } from "../../assets/images/leftMenu/xbox.svg";
 import { ReactComponent as PS } from "../../assets/images/leftMenu/ps.svg";
@@ -18,6 +16,8 @@ import { ReactComponent as Neogeo } from "../../assets/images/leftMenu/neogeo.sv
 import { ReactComponent as Sega } from "../../assets/images/leftMenu/sega.svg";
 import { ReactComponent as Web } from "../../assets/images/leftMenu/web.svg";
 import { Platform } from "../../store/platforms/platformSlice";
+import { addFilter } from "../../store/games/gamesSlice";
+import { useAppDispatch } from "../../helper/hook";
 
 type TIcons = {
   [index: string]: React.ComponentClass<any>;
@@ -40,12 +40,12 @@ const arrayIcons: TIcons = {
 };
 export const LeftMenuItem = ({ id, name, slug }: Platform) => {
   const dispatch = useAppDispatch();
-  const Icon = arrayIcons[name];
   const onHandleClick = () => {
     dispatch(addFilter({ id, slug }));
     window.scrollTo(0, 0);
   };
 
+  const Icon = arrayIcons[name];
   if (Icon) {
     return (
       <li onClick={onHandleClick}>

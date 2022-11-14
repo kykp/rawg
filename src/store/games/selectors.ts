@@ -1,6 +1,4 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { sortingArrayByDate } from "../../helper/sortingArrayByDate";
-import { sortingArrayByRating } from "../../helper/sortingArrayByRating";
 import { RootState } from "../index";
 
 export const getAllGames = (store: RootState) => store.games;
@@ -9,8 +7,10 @@ export const getSearch = (store: RootState) => store.games;
 export const getError = (store: RootState) => store.games;
 export const getLoading = (store: RootState) => store.games;
 export const getSearchResults = (store: RootState) => store.games;
-export const getSortDirectionByDate = (store: RootState) => store.games;
-export const getSortDirectionByRating = (store: RootState) => store.games;
+export const getSortDirection = (store: RootState) => store.games;
+export const getSortingByDate = (store: RootState) => store.games;
+export const getSortingByRating = (store: RootState) => store.games;
+export const getOrdering = (store: RootState) => store.games;
 
 export const selectAllGames = createSelector(
   getAllGames,
@@ -24,16 +24,24 @@ export const selectLoading = createSelector(
   getLoading,
   (games) => games.loading
 );
-export const selectSortDirectionByDate = createSelector(
-  getSortDirectionByDate,
-  (games) => games.sortingDateDec
+export const selectSortDirection = createSelector(
+  getSortDirection,
+  (games) => games.isSortingDec
 );
-export const selectSortDirectinByRating = createSelector(
-  getSortDirectionByRating,
-  (games) => games.sortingRatingDec
+export const selectSortingByDate = createSelector(
+  getSortingByDate,
+  (games) => games.sortingByDate
+);
+export const selectSortingByRating = createSelector(
+  getSortingByRating,
+  (games) => games.sortingByRating
+);
+export const selectOrdering = createSelector(
+  getOrdering,
+  (games) => games.requestOrdering
 );
 export const selectSearch = createSelector(getSearch, (games) => games.search);
-export const selectError = createSelector(getError, (game) => game.error);
+export const selectError = createSelector(getError, (games) => games.error);
 
 export const selectResearchResults = createSelector(
   getSearchResults,
@@ -41,8 +49,8 @@ export const selectResearchResults = createSelector(
 );
 
 export const selectGamesByFilter = createSelector(
-  [selectAllGames, selectSortDirectionByDate, selectSortDirectinByRating],
-  (allGames, sortDirectionByDate, sortDirectionByRating) => {
+  [selectAllGames],
+  (allGames) => {
     // if (
     //   sortDirectionByDate === "notActive" &&
     //   sortDirectionByRating === "notActive"

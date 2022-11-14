@@ -31,10 +31,10 @@ export type Filter = {
   slug: string;
 };
 
-export enum sortingDesc {
-  true = "true",
-  false = "false",
-  notActive = "notActive",
+export enum EOrdering {
+  undefined = "",
+  released = "released",
+  rating = "rating",
 }
 
 type GamesState = {
@@ -44,8 +44,10 @@ type GamesState = {
   filter: Filter;
   search: string;
   searchCounter: number | null;
-  sortingDateDec: sortingDesc;
-  sortingRatingDec: sortingDesc;
+  requestOrdering: EOrdering;
+  isSortingDec: boolean;
+  sortingByDate: boolean;
+  sortingByRating: boolean;
 };
 
 const initialState: GamesState = {
@@ -55,8 +57,10 @@ const initialState: GamesState = {
   error: "",
   search: "",
   searchCounter: null,
-  sortingDateDec: sortingDesc.notActive,
-  sortingRatingDec: sortingDesc.notActive,
+  requestOrdering: EOrdering.undefined,
+  isSortingDec: false,
+  sortingByDate: false,
+  sortingByRating: false,
 };
 
 export const gamesSlice = createSlice({
@@ -79,31 +83,41 @@ export const gamesSlice = createSlice({
     setSearchCounter: (state, action: PayloadAction<{ counter: number }>) => {
       state.searchCounter = action.payload.counter;
     },
-    switchDateSort: (
+    switchSortingByDate: (
       state,
-      action: PayloadAction<{ direction: sortingDesc }>
+      action: PayloadAction<{ active: boolean }>
     ) => {
-      state.sortingDateDec = action.payload.direction;
+      state.sortingByDate = action.payload.active;
     },
-    switchRatingSort: (
+    switchSortingByRating: (
       state,
-      action: PayloadAction<{ direction: sortingDesc }>
+      action: PayloadAction<{ active: boolean }>
     ) => {
-      state.sortingRatingDec = action.payload.direction;
+      state.sortingByRating = action.payload.active;
+    },
+    switchSortDirection: (state) => {
+      state.isSortingDec = !state.isSortingDec;
+    },
+    setOrdering: (
+      state,
+      action: PayloadAction<{ currentOrder: EOrdering }>
+    ) => {
+      state.requestOrdering = action.payload.currentOrder;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchGames.fulfilled, (state, action) => {
-        if (state.sortingDateDec !== "notActive") {
-          const isSortingDec = state.sortingDateDec === "true" ? true : false;
-          state.games = sortingArrayByDate(action.payload, isSortingDec);
-        } else if (state.sortingRatingDec !== "notActive") {
-          const isSortingDec = state.sortingRatingDec === "true" ? true : false;
-          state.games = sortingArrayByRating(action.payload, isSortingDec);
-        } else {
-          state.games = action.payload;
-        }
+        // if (state.sortingDateDec !== "notActive") {
+        //   const isSortingDec = state.sortingDateDec === "true" ? true : false;
+        //   state.games = sortingArrayByDate(action.payload, isSortingDec);
+        // } else if (state.sortingRatingDec !== "notActive") {
+        //   const isSortingDec = state.sortingRatingDec === "true" ? true : false;
+        //   state.games = sortingArrayByRating(action.payload, isSortingDec);
+        // } else {
+        //   state.games = action.payload;
+        // }
+        state.games = action.payload;
         state.loading = false;
       })
       .addCase(fetchGames.pending, (state) => {
@@ -113,21 +127,21 @@ export const gamesSlice = createSlice({
         state.error = "Warning";
       })
       .addCase(fetchMoreGames.fulfilled, (state, action) => {
-        if (state.sortingDateDec !== "notActive") {
-          const isSortingDec = state.sortingDateDec === "true" ? true : false;
-          const sortedArray = sortingArrayByDate(action.payload, isSortingDec);
-          state.games = [...state.games, ...sortedArray];
-        } else if (state.sortingRatingDec !== "notActive") {
-          const isSortingDec = state.sortingRatingDec === "true" ? true : false;
-          const sortedArray = sortingArrayByRating(
-            action.payload,
-            isSortingDec
-          );
-          state.games = [...state.games, ...sortedArray];
-        } else {
-          state.games = [...state.games, ...action.payload];
-        }
-
+        // if (state.sortingDateDec !== "notActive") {
+        //   const isSortingDec = state.sortingDateDec === "true" ? true : false;
+        //   const sortedArray = sortingArrayByDate(action.payload, isSortingDec);
+        //   state.games = [...state.games, ...sortedArray];
+        // } else if (state.sortingRatingDec !== "notActive") {
+        //   const isSortingDec = state.sortingRatingDec === "true" ? true : false;
+        //   const sortedArray = sortingArrayByRating(
+        //     action.payload,
+        //     isSortingDec
+        //   );
+        //   state.games = [...state.games, ...sortedArray];
+        // } else {
+        //   state.games = [...state.games, ...action.payload];
+        // }
+        state.games = [...state.games, ...action.payload];
         state.loading = false;
       })
       .addCase(fetchMoreGames.pending, (state) => {
@@ -149,8 +163,10 @@ export const {
   clearError,
   clearFilter,
   setSearchCounter,
-  switchDateSort,
-  switchRatingSort,
+  switchSortingByDate,
+  switchSortingByRating,
+  switchSortDirection,
+  setOrdering,
 } = gamesSlice.actions;
 
 export default gamesSlice.reducer;

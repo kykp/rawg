@@ -5,21 +5,19 @@ import { Catalog } from "./pages/Catalog/Catalog.tsx";
 import { NotFound } from "./pages/NotFound/NotFound";
 import { Layout } from "./components/Layout/Layout";
 
-import { useAppDispatch, useAppSelector } from "./helper/hook";
+import { useAppDispatch } from "./helper/hook";
 import { fetchPlatforms } from "./store/platforms/asyncActions";
 import { fetchGames } from "./store/games/asyncActions";
 
 import "./index.module.scss";
-import { selectFilters } from "./store/games/selectors";
 
 function App() {
   const dispatch = useAppDispatch();
-  const platforms = useAppSelector(selectFilters);
 
   useEffect(() => {
     dispatch(
       fetchGames({
-        platformId: platforms.id,
+        platformId: null,
         isDateSort: false,
         isRatingSort: false,
         isSortDirectionDec: true,
@@ -28,7 +26,7 @@ function App() {
         search: "",
       })
     );
-  }, [dispatch, platforms.id]);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchPlatforms());

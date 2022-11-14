@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import styles from "./header.module.scss";
 import { useAppDispatch, useAppSelector } from "../../helper/hook";
-import { addSearch, sortingDesc } from "../../store/games/gamesSlice";
+import { addSearch } from "../../store/games/gamesSlice";
 import { fetchGames } from "../../store/games/asyncActions";
-import {
-  selectSortDirectinByRating,
-  selectSortDirectionByDate,
-} from "../../store/games/selectors";
+
 import { useNavigate } from "react-router-dom";
+import {
+  selectFilters,
+  selectOrdering,
+  selectSortDirection,
+  selectSortingByDate,
+  selectSortingByRating,
+} from "../../store/games/selectors";
 export const Input = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isSortingDecByDate: sortingDesc = useAppSelector(
-    selectSortDirectionByDate
-  );
-  const isSortingDecByRating = useAppSelector(selectSortDirectinByRating);
+  const isSortingDec = useAppSelector(selectSortDirection);
+  const sortByDate = useAppSelector(selectSortingByDate);
+  const sortByRating = useAppSelector(selectSortingByRating);
+  const filter = useAppSelector(selectFilters);
+  const ordering = useAppSelector(selectOrdering);
+
   const [search, setSearch] = useState("");
 
   const onHandleChange = (e: { target: HTMLInputElement }) => {
@@ -26,14 +32,11 @@ export const Input = () => {
 
     dispatch(
       fetchGames({
-        platformId: null,
-        isDateSort: isSortingDecByDate !== "notActive" ? true : false,
-        isRatingSort: isSortingDecByRating !== "notActive" ? true : false,
-        isSortDirectionDec:
-          isSortingDecByDate === "true" || isSortingDecByRating === "true"
-            ? true
-            : false,
-        ordering: isSortingDecByDate === "notActive" ? "rating" : "released",
+        platformId: filter.id,
+        isDateSort: sortByDate,
+        isRatingSort: sortByRating,
+        isSortDirectionDec: isSortingDec,
+        ordering,
         page: 1,
         search,
       })

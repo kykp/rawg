@@ -1,65 +1,66 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../helper/hook";
-import {
-  sortingDesc,
-  switchDateSort,
-  switchRatingSort,
-} from "../../../store/games/gamesSlice";
+
 import {
   selectFilters,
+  selectOrdering,
   selectSearch,
-  selectSortDirectionByDate,
+  selectSortDirection,
+  selectSortingByDate,
 } from "../../../store/games/selectors";
 import styles from "../contentFilters.module.scss";
 import { BsArrowDownSquare, BsArrowUpSquare } from "react-icons/bs";
 import { fetchGames } from "../../../store/games/asyncActions";
-
+import {
+  setOrdering,
+  switchSortDirection,
+  switchSortingByDate,
+  switchSortingByRating,
+} from "../../../store/games/gamesSlice";
+import { EOrdering } from "../../../store/games/gamesSlice";
 export const ButtonDateFilter = () => {
+  const isSortingDec = useAppSelector(selectSortDirection);
+  const sortByDate = useAppSelector(selectSortingByDate);
   const dispatch = useAppDispatch();
   const filter = useAppSelector(selectFilters);
   const search = useAppSelector(selectSearch);
-  const isSortingDecByDate: sortingDesc = useAppSelector(
-    selectSortDirectionByDate
-  );
-  const onHandleSortByReleaseDate = () => {
-    isSortingDecByDate === "notActive" || isSortingDecByDate === "false"
-      ? dispatch(switchDateSort({ direction: sortingDesc.true }))
-      : dispatch(switchDateSort({ direction: sortingDesc.false }));
+  const ordering = useAppSelector(selectOrdering);
 
-    dispatch(switchRatingSort({ direction: sortingDesc.notActive }));
+  const onHandleClick = () => {
+    if (!sortByDate) {
+      dispatch(switchSortingByDate({ active: true }));
+      dispatch(switchSortingByRating({ active: false }));
+      dispatch(setOrdering({ currentOrder: EOrdering.released }));
+    }
+    dispatch(switchSortDirection());
   };
-
   useEffect(() => {
-    if (isSortingDecByDate !== "notActive") {
+    if (sortByDate) {
       dispatch(
         fetchGames({
           platformId: filter.id,
           isDateSort: true,
           isRatingSort: false,
-          isSortDirectionDec: isSortingDecByDate === "true" ? true : false,
-          ordering: "rating",
+          isSortDirectionDec: isSortingDec,
+          ordering,
           page: 1,
           search,
         })
       );
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSortingDecByDate]);
-
+  }, [isSortingDec]);
   return (
     <>
-      <button
-        className={styles.filters__button}
-        onClick={onHandleSortByReleaseDate}
-      >
+      <button className={styles.filters__button} onClick={onHandleClick}>
         <span> Sort by Release Date</span>
-        {isSortingDecByDate === "notActive" ? null : isSortingDecByDate ===
-          "true" ? (
-          <BsArrowDownSquare />
-        ) : (
-          <BsArrowUpSquare />
-        )}
+        {sortByDate ? (
+          isSortingDec ? (
+            <BsArrowDownSquare />
+          ) : (
+            <BsArrowUpSquare />
+          )
+        ) : null}
       </button>
     </>
   );
