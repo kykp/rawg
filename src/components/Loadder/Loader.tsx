@@ -28,7 +28,9 @@ export const Loader = () => {
   const isSortingDecByDate: sortingDesc = useAppSelector(
     selectSortDirectionByDate
   );
-  const isSortingDecByRating = useAppSelector(selectSortDirectinByRating);
+  const isSortingDecByRating: sortingDesc = useAppSelector(
+    selectSortDirectinByRating
+  );
 
   let observer = useRef<IntersectionObserver | null>(null);
 
@@ -53,7 +55,13 @@ export const Loader = () => {
                     ? true
                     : false,
                 ordering:
-                  isSortingDecByDate === "notActive" ? "rating" : "released",
+                  isSortingDecByDate === "notActive" &&
+                  isSortingDecByRating === "notActive"
+                    ? ""
+                    : isSortingDecByRating === "true" ||
+                      isSortingDecByRating === "false"
+                    ? "rating"
+                    : "released",
                 page,
                 search,
               })
@@ -78,7 +86,7 @@ export const Loader = () => {
 
   useEffect(() => {
     setPage(2);
-  }, [isSortingDecByDate]);
+  }, [isSortingDecByDate, isSortingDecByRating]);
 
   useEffect(() => {
     if (filter.slug !== "") {
@@ -86,6 +94,24 @@ export const Loader = () => {
     }
   }, [filter, isSortingDecByDate]);
 
+  console.log(
+    filter.id,
+    isSortingDecByDate !== "notActive" ? true : false,
+
+    isSortingDecByRating !== "notActive" ? true : false,
+
+    isSortingDecByDate === "true" || isSortingDecByRating === "true"
+      ? true
+      : false,
+
+    isSortingDecByDate === "notActive" && isSortingDecByRating === "notActive"
+      ? ""
+      : isSortingDecByRating === "true" || isSortingDecByRating === "false"
+      ? "rating"
+      : "released",
+    page,
+    search
+  );
   return (
     <>
       {searchCounter !== 0 && data?.length !== searchCounter

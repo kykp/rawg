@@ -43,20 +43,21 @@ export const selectResearchResults = createSelector(
 export const selectGamesByFilter = createSelector(
   [selectAllGames, selectSortDirectionByDate, selectSortDirectinByRating],
   (allGames, sortDirectionByDate, sortDirectionByRating) => {
-    if (
-      sortDirectionByDate === "notActive" &&
-      sortDirectionByRating === "notActive"
-    )
-      return allGames;
+    // if (
+    //   sortDirectionByDate === "notActive" &&
+    //   sortDirectionByRating === "notActive"
+    // )
+    //   return allGames;
 
-    if (sortDirectionByDate === "true" || sortDirectionByDate === "false") {
-      const sortDirection = sortDirectionByDate === "true" ? true : false;
-      return sortingArrayByDate(allGames, sortDirection);
-    }
+    // if (sortDirectionByDate === "true" || sortDirectionByDate === "false") {
+    //   const sortDirection = sortDirectionByDate === "true" ? true : false;
+    //   return sortingArrayByDate(allGames, sortDirection);
+    // }
 
-    if (sortDirectionByRating === "true" || sortDirectionByRating === "false") {
-      const sortDirection = sortDirectionByRating === "true" ? true : false;
-      return sortingArrayByRating(allGames, sortDirection);
-    }
+    // if (sortDirectionByRating === "true" || sortDirectionByRating === "false") {
+    //   const sortDirection = sortDirectionByRating === "true" ? true : false;
+    //   return sortingArrayByRating(allGames, sortDirection);
+    // }
+    return allGames;
   }
 );

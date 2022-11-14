@@ -31,24 +31,8 @@ export const CardSceleton = () => {
           </div>
           <div className={styles.description}>
             <ul className={styles.description__items}>
-              <li className={styles.description__item}>
-                <div>
-                  <Skeleton width={100} />
-                </div>
-                <div>
-                  <p>
-                    <Skeleton width={100} />
-                  </p>
-                </div>
-              </li>
-              <li className={styles.description__item}>
-                <div>
-                  <Skeleton width={100} />
-                </div>
-                <div className={styles.description__genres}>
-                  <Skeleton width={100} />
-                </div>
-              </li>
+              <Skeleton />
+              <Skeleton />
             </ul>
           </div>
         </div>

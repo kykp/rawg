@@ -3,9 +3,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { generateNewUrl } from "../../helper/generateNewUrl";
 import { asyncActionFetcherGames } from "../../helper/asyncActionFetcherGames";
 
-const limitDateFilter = "&dates=2010-01-01,2023-12-31.1960-01-01,1969-12-31";
-const size = 40;
-
 export const fetchGames = createAsyncThunk<
   Game[],
   {
@@ -33,10 +30,9 @@ export const fetchGames = createAsyncThunk<
     { rejectWithValue, dispatch }
   ) => {
     const URL = generateNewUrl(
-      `&page_size=${size}&dates=${limitDateFilter}`,
+      platformId,
       isDateSort,
       isRatingSort,
-      platformId,
       isSortDirectionDec,
       ordering,
       page,
@@ -79,10 +75,9 @@ export const fetchMoreGames = createAsyncThunk<
     { rejectWithValue }
   ) => {
     const URL = generateNewUrl(
-      `&page_size=${size}&dates=${limitDateFilter}`,
+      platformId,
       isDateSort,
       isRatingSort,
-      platformId,
       isSortDirectionDec,
       ordering,
       page,

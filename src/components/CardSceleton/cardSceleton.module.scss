@@ -5,26 +5,11 @@
     width: 100%;
     align-items: center;
     flex-direction: column;
-    background-color: $bgc-card; 
-    border-radius: 10px;  
-    transition: scale 0.3s ease-in-out;
-    &:hover {
-        cursor: pointer;
-        scale: 1.01;
-    }
+    background-color: $bgc-card;  
+    transition: scale 0.3s ease-in-out; 
 }
 .pictures {  
-    width: 100%;   
-    & img {  
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        width: 100%; 
-        height: 220px; 
-        object-fit: cover; 
-    }
-    & span {
-        width: 100%;
-    }
+    width: 100%;    
 }
 .card__footer {
     width: 90%;
@@ -38,39 +23,14 @@
     flex-direction: column;
     align-items: center;
     margin-top: 10px;
-    padding: 5px 10px;
-    text-align: center;
+    padding: 5px 10px; 
 }
 .platforms {
-    width: 100%; 
-    &_items {
-        display: flex;
-        gap:5px;
-        margin-left: 5px;
-    }
+    width: 100%;  
 }
 
 .description {
     width: 100%;
     margin-top: 15px;
-    padding-bottom: 15px;
-    &__items{
-        font-size: $fs-low-resolution;
-        font-weight: 200;
-        color: $tertiary-text-color;
-
-    }
-    &__item { 
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid $secondary-text-color; 
-        padding-top: 5px;
-        padding-bottom: 5px; 
-    }
-    &__genres {
-        display: flex;
-        flex-grow: 3;
-        flex-wrap: wrap;
-        justify-content: end; 
-    }
+    padding-bottom: 15px; 
 }

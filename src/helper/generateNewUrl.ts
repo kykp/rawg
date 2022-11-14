@@ -1,13 +1,13 @@
 export const generateNewUrl = (
-  currentUrl: string,
+  platformId: number | null,
   isDateSort: boolean,
   isRatingSort: boolean,
-  platformId: number | null,
   isSortDirectionDec: boolean,
   ordering: string,
   page: number,
   search: string
 ) => {
+  let currentUrl = ``;
   if (search !== "") {
     currentUrl += `&search=${search}`;
   }
