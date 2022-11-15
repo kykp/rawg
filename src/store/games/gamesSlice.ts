@@ -108,15 +108,6 @@ export const gamesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchGames.fulfilled, (state, action) => {
-        // if (state.sortingDateDec !== "notActive") {
-        //   const isSortingDec = state.sortingDateDec === "true" ? true : false;
-        //   state.games = sortingArrayByDate(action.payload, isSortingDec);
-        // } else if (state.sortingRatingDec !== "notActive") {
-        //   const isSortingDec = state.sortingRatingDec === "true" ? true : false;
-        //   state.games = sortingArrayByRating(action.payload, isSortingDec);
-        // } else {
-        //   state.games = action.payload;
-        // }
         state.games = action.payload;
         state.loading = false;
       })
@@ -127,20 +118,6 @@ export const gamesSlice = createSlice({
         state.error = "Warning";
       })
       .addCase(fetchMoreGames.fulfilled, (state, action) => {
-        // if (state.sortingDateDec !== "notActive") {
-        //   const isSortingDec = state.sortingDateDec === "true" ? true : false;
-        //   const sortedArray = sortingArrayByDate(action.payload, isSortingDec);
-        //   state.games = [...state.games, ...sortedArray];
-        // } else if (state.sortingRatingDec !== "notActive") {
-        //   const isSortingDec = state.sortingRatingDec === "true" ? true : false;
-        //   const sortedArray = sortingArrayByRating(
-        //     action.payload,
-        //     isSortingDec
-        //   );
-        //   state.games = [...state.games, ...sortedArray];
-        // } else {
-        //   state.games = [...state.games, ...action.payload];
-        // }
         state.games = [...state.games, ...action.payload];
         state.loading = false;
       })
