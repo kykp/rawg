@@ -20,7 +20,7 @@ import { addFilter } from "../../store/games/gamesSlice";
 import { useAppDispatch } from "../../helper/hook";
 
 type TIcons = {
-  [index: string]: React.ComponentClass<any>;
+  [item: string]: React.ComponentClass<any>;
 };
 const arrayIcons: TIcons = {
   PC: Windows,

@@ -1,8 +1,4 @@
-import React, {
-  Component,
-  JSXElementConstructor,
-  ReactComponentElement,
-} from "react";
+import React from "react";
 
 import styles from "./cardsPlatfotmIcons.module.scss";
 import { ReactComponent as Windows } from "../../assets/images/leftMenu/windows.svg";
