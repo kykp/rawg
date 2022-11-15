@@ -7,7 +7,7 @@
     flex-direction: column;
     background-color: $bgc-card; 
     border-radius: 10px; 
-    transition: scale 0.3s ease-in-out;
+    transition: scale 0.3s ease-in-out; 
     &_link {
         width: 100%;
     }
@@ -17,7 +17,8 @@
 }
 .pictures {  
     width: 100%;   
-    & img {  
+    
+    & img {   
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         width: 100%; 
